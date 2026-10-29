@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATYOWIDIASA — DDD Space</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-primary: #f5f5f7;
+            --text-secondary: #888888;
+            --accent-gold: #c5a059;
+            --border-color: #222222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4rem 2rem;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        header {
+            margin-bottom: 3rem;
+        }
+
+        .studio-name {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background-color: var(--accent-gold);
+            margin: 0 auto 1.5rem auto;
+        }
+
+        p.subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            margin: 3rem 0;
+        }
+
+        .portfolio-card {
+            background: #111111;
+            border: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            text-align: left;
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-4px);
+        }
+
+        .portfolio-card h3 {
+            font-size: 0.95rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+
+        .portfolio-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.7;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="studio-name">DDD Space Architecture & Interior</div>
+            <h1>Satyo Widiasa</h1>
+            <div class="divider"></div>
+            <p class="subtitle">High-End 3D Architectural Visualization & Spatial Design Studio</p>
+        </header>
+
+        <section class="portfolio-grid">
+            <div class="portfolio-card">
+                <h3>Interior Rendering</h3>
+                <p>Curated luxury spatial visualizations and meticulous 3D drafting workflows.</p>
+            </div>
+            <div class="portfolio-card">
+                <h3>Architectural 3D</h3>
+                <p>Precision modeling optimized for high-end residential and commercial presentations.</p>
+            </div>
+            <div class="portfolio-card">
+                <h3>Custom Design</h3>
+                <p>Tailored digital art, graphic solutions, and specialized visual assets.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        Inquiries: <a href="mailto:contact@satyowidiasa.com">contact@satyowidiasa.com</a> &mdash; &copy; 2026 DDD Space
+    </footer>
+
+</body>
+</html>
