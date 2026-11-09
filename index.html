@@ -1,284 +1,1432 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATYOWIDIASA — DDD Space | Selected Architectural Works</title>
+    <title>SATYOWIDIASA — DDD SPACE | Selected Architectural Works</title>
+    <meta name="description" content="DDD Space by Satyowidiasa — Ruang untuk menemukan keselarasan dalam berarsitektur. Residential, Commercial, Exterior, Interior & Architectural Support.">
     
-    <!-- Favicon Inisial S Serif -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23ffffff'/><text x='50%' y='56%' dominant-baseline='central' text-anchor='middle' font-family='Georgia, serif' font-size='72' fill='%23000000'>S</text></svg>">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Open Graph Thumbnail -->
-    <meta property="og:title" content="SATYOWIDIASA — DDD Space | Selected Architectural Works">
-    <meta property="og:description" content="Menemukan keselarasan dalam berarsitektur. Residential, Commercial, Exterior & Interior.">
-    <meta property="og:image" content="https://satyowidiasa.com/logo.jpg">
-    <meta property="og:url" content="https://satyowidiasa.com">
+    <!-- Google Fonts: Cormorant Garamond (Prestige Serif), Inter (Clean Grotesque), JetBrains Mono (Architectural Metadata) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gallery: {
+                            bg: '#FAF9F6',
+                            surface: '#F2F0EB',
+                            ink: '#141413',
+                            muted: '#78756F',
+                            line: '#E6E4DF',
+                            sage: '#5E6B5C',
+                            darkBg: '#111110',
+                            darkSurface: '#1A1A18',
+                            darkInk: '#F2F0EB',
+                            darkMuted: '#8E8B84',
+                            darkLine: '#262624'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
-        :root {
-            --bg: #FAF9F6;
-            --text: #1A1A1A;
-            --muted: #767676;
-            --border: #E5E3DD;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        /* Editorial & Andra Matin Inspired Micro-Styles */
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #FAF9F6;
+            color: #141413;
+            font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
-            line-height: 1.5;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
-        a { color: inherit; text-decoration: none; }
-        header {
-            position: fixed; top: 0; left: 0; width: 100%;
-            background: rgba(250, 249, 246, 0.9);
-            backdrop-filter: blur(8px);
-            z-index: 100;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 24px 48px;
-            border-bottom: 1px solid var(--border);
-        }
-        .logo-img { height: 24px; width: auto; mix-blend-mode: multiply; display: block; }
-        .nav-right { display: flex; gap: 32px; align-items: center; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; }
-        .view-switch { display: flex; gap: 12px; color: var(--muted); cursor: pointer; }
-        .view-switch span.active { color: var(--text); font-weight: 500; }
-        
-        main { padding: 140px 48px 80px 48px; max-width: 1600px; margin: 0 auto; }
-        
-        /* Intro Statement */
-        .intro-statement {
-            font-family: Georgia, serif;
-            font-size: clamp(24px, 3vw, 42px);
-            line-height: 1.3;
-            max-width: 900px;
-            margin-bottom: 60px;
-            font-weight: 400;
-        }
-        .intro-statement span { color: var(--muted); display: block; font-size: 14px; font-family: sans-serif; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
 
-        /* Grid View */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 32px;
+        html.dark body {
+            background-color: #111110;
+            color: #F2F0EB;
         }
-        .project-card {
-            grid-column: span 6;
-            cursor: pointer;
-            margin-bottom: 40px;
-        }
-        .project-card:nth-child(3n) { grid-column: span 12; }
-        .project-img-wrap {
-            width: 100%;
-            aspect-ratio: 16 / 10;
-            background: #EFEEE9;
+
+        /* Subtle image hover transition without loud effects */
+        .arch-image-wrap {
             overflow: hidden;
-            margin-bottom: 14px;
+            background-color: #EAE8E1;
+            position: relative;
         }
-        .project-card:nth-child(3n) .project-img-wrap { aspect-ratio: 21 / 9; }
-        .project-img-wrap img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        html.dark .arch-image-wrap {
+            background-color: #1E1E1C;
         }
-        .project-card:hover img { transform: scale(1.03); }
-        .project-meta { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
-        .project-title { font-size: 15px; font-weight: 500; color: var(--text); }
+        
+        .arch-image {
+            transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+            will-change: transform;
+        }
+        
+        .group:hover .arch-image {
+            transform: scale(1.022);
+        }
 
-        /* Index List View */
-        .index-list { display: none; flex-direction: column; width: 100%; }
-        .index-row {
-            display: grid; grid-template-columns: 80px 1fr 2fr 1fr 100px;
-            padding: 24px 0; border-bottom: 1px solid var(--border);
-            align-items: center; cursor: pointer; font-size: 14px;
-            transition: color 0.2s;
+        /* Custom subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
         }
-        .index-row:hover { color: #000; }
-        .index-row header-col { color: var(--muted); }
-        .index-row .title { font-weight: 500; font-size: 16px; font-family: Georgia, serif; }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D0CEC7;
+        }
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #333330;
+        }
 
-        /* Detail Modal */
-        #modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg); z-index: 200; overflow-y: auto;
-            display: none; padding: 60px 48px;
+        /* Floating preview image for Index List View */
+        #hover-preview-container {
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .modal-close {
-            position: fixed; top: 32px; right: 48px; font-size: 14px;
-            text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; z-index: 210;
-            background: var(--border); padding: 8px 16px; border-radius: 20px;
-        }
-        .modal-body { max-width: 1100px; margin: 0 auto; }
-        .modal-img { width: 100%; max-height: 75vh; object-fit: cover; margin-bottom: 32px; }
-        .modal-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; margin-top: 32px; }
-        .modal-desc { font-size: 16px; line-height: 1.8; color: #333; }
-        .specs-box { border-left: 1px solid var(--border); padding-left: 32px; font-size: 14px; display: flex; flex-direction: column; gap: 16px; }
-        .spec-item span { display: block; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
 
-        footer {
-            padding: 80px 48px 48px 48px;
-            border-top: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: flex-end;
-            margin-top: 80px; font-size: 13px; color: var(--muted);
+        /* Hairline Borders */
+        .hairline-t {
+            border-top: 1px solid #E6E4DF;
         }
-        footer a { color: var(--text); text-decoration: underline; }
+        .hairline-b {
+            border-bottom: 1px solid #E6E4DF;
+        }
+        html.dark .hairline-t {
+            border-top: 1px solid #262624;
+        }
+        html.dark .hairline-b {
+            border-bottom: 1px solid #262624;
+        }
 
-        @media(max-width: 768px) {
-            header { padding: 20px 24px; }
-            main { padding: 110px 24px 40px 24px; }
-            .grid-container { display: flex; flex-direction: column; gap: 24px; }
-            .project-card, .project-card:nth-child(3n) { grid-column: span 12; }
-            .index-row { grid-template-columns: 1fr; gap: 8px; padding: 16px 0; }
-            .modal-grid { grid-template-columns: 1fr; gap: 24px; }
-            #modal { padding: 40px 20px; }
-            .modal-close { top: 20px; right: 20px; }
-            footer { flex-direction: column; gap: 24px; align-items: flex-start; padding: 40px 24px; }
+        /* Edit mode outline cue */
+        body.edit-mode-active .editable-img-trigger {
+            outline: 1px dashed #5E6B5C;
+            outline-offset: 4px;
+        }
+        
+        body.edit-mode-active [contenteditable="true"] {
+            background-color: rgba(94, 107, 92, 0.12);
+            border-bottom: 1px dashed #5E6B5C;
+            padding: 1px 4px;
+            border-radius: 2px;
+            cursor: text;
+            transition: background-color 0.2s ease;
+        }
+        body.edit-mode-active [contenteditable="true"]:focus {
+            outline: 1px solid #5E6B5C;
+            background-color: rgba(94, 107, 92, 0.22);
         }
     </style>
 </head>
-<body>
+<body class="selection:bg-stone-800 selection:text-stone-100 dark:selection:bg-stone-200 dark:selection:text-stone-900">
 
-    <header>
-        <a href="#"><img src="logo.jpg" alt="Satyowidiasa" class="logo-img"></a>
-        <div class="nav-right">
-            <div class="view-switch">
-                <span id="btn-grid" class="active" onclick="switchView('grid')">Grid</span> / 
-                <span id="btn-index" onclick="switchView('index')">Index</span>
+    <!-- ================= STICKY MINIMALIST HEADER ================= -->
+    <header class="sticky top-0 z-40 bg-[#FAF9F6]/90 dark:bg-[#111110]/90 backdrop-blur-md hairline-b transition-colors duration-300">
+        <div class="max-w-[1440px] mx-auto px-5 sm:px-10 md:px-16 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Left: Prestige Serif Wordmark & Studio Sub-label -->
+            <a href="#" class="group flex flex-col focus:outline-none">
+                <span class="font-serif text-xl sm:text-2xl tracking-[0.22em] font-medium text-gallery-ink dark:text-gallery-darkInk uppercase">
+                    SATYOWIDIASA
+                </span>
+                <span class="font-mono text-[9px] tracking-[0.24em] text-gallery-muted dark:text-gallery-darkMuted uppercase mt-0.5">
+                    DDD SPACE — Architectural Practice
+                </span>
+            </a>
+
+            <!-- Center: Category Filter (Desktop) -->
+            <div class="hidden xl:flex items-center space-x-7 font-mono text-[11px] tracking-[0.12em] uppercase">
+                <button onclick="filterProjects('all')" data-filter="all" class="filter-btn text-gallery-ink dark:text-gallery-darkInk underline underline-offset-8 decoration-1">
+                    All Works
+                </button>
+                <button onclick="filterProjects('Residential')" data-filter="Residential" class="filter-btn text-gallery-muted dark:text-gallery-darkMuted hover:text-gallery-ink dark:hover:text-gallery-darkInk transition-colors">
+                    Residential
+                </button>
+                <button onclick="filterProjects('Commercial')" data-filter="Commercial" class="filter-btn text-gallery-muted dark:text-gallery-darkMuted hover:text-gallery-ink dark:hover:text-gallery-darkInk transition-colors">
+                    Commercial
+                </button>
+                <button onclick="filterProjects('Exterior — Interior')" data-filter="Exterior — Interior" class="filter-btn text-gallery-muted dark:text-gallery-darkMuted hover:text-gallery-ink dark:hover:text-gallery-darkInk transition-colors">
+                    Exterior — Interior
+                </button>
+                <button onclick="filterProjects('Supporting & Visual')" data-filter="Supporting & Visual" class="filter-btn text-gallery-muted dark:text-gallery-darkMuted hover:text-gallery-ink dark:hover:text-gallery-darkInk transition-colors">
+                    Supporting &amp; Visual
+                </button>
             </div>
-            <a href="mailto:contact@satyowidiasa.com" style="text-decoration: underline;">Kontak</a>
+
+            <!-- Right: View Switcher, Navigation & Gallery Theme Toggle -->
+            <div class="flex items-center space-x-5 sm:space-x-8">
+                <!-- Andra Matin Style View Toggle: Grid vs Index Archive -->
+                <div class="flex items-center space-x-2 font-mono text-[10px] tracking-[0.15em] uppercase border border-stone-300/80 dark:border-stone-800 px-2.5 py-1 rounded-sm">
+                    <button id="btn-view-grid" onclick="setViewMode('grid')" class="text-gallery-ink dark:text-gallery-darkInk font-medium transition-opacity">
+                        Grid
+                    </button>
+                    <span class="text-stone-300 dark:text-stone-700">/</span>
+                    <button id="btn-view-index" onclick="setViewMode('index')" class="text-gallery-muted dark:text-gallery-darkMuted hover:text-gallery-ink dark:hover:text-gallery-darkInk transition-opacity">
+                        Index
+                    </button>
+                </div>
+
+                <nav class="hidden md:flex items-center space-x-6 font-mono text-[11px] tracking-[0.14em] uppercase text-gallery-muted dark:text-gallery-darkMuted">
+                    <a href="#works" class="hover:text-gallery-ink dark:hover:text-gallery-darkInk transition-colors">Selected</a>
+                    <a href="#studio" class="hover:text-gallery-ink dark:hover:text-gallery-darkInk transition-colors">DDD Space</a>
+                    <a href="#contact" class="hover:text-gallery-ink dark:hover:text-gallery-darkInk transition-colors">Contact</a>
+                </nav>
+
+                <!-- Light / Dark Gallery Toggle -->
+                <button onclick="toggleTheme()" title="Switch Gallery Ambience (Light / Dark)" class="p-1.5 text-gallery-muted dark:text-gallery-darkMuted hover:text-gallery-ink dark:hover:text-gallery-darkInk transition-colors focus:outline-none" aria-label="Toggle Theme">
+                    <span id="theme-label" class="font-mono text-[10px] tracking-widest uppercase hidden sm:inline">Daylight</span>
+                    <span class="inline-block w-2 h-2 rounded-full bg-stone-800 dark:bg-stone-200 ml-1 align-middle"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile / Tablet Filter Bar -->
+        <div class="xl:hidden hairline-t px-5 py-2.5 flex items-center justify-between overflow-x-auto no-scrollbar font-mono text-[10px] tracking-[0.14em] uppercase space-x-5">
+            <div class="flex items-center space-x-4 shrink-0">
+                <button onclick="filterProjects('all')" data-filter="all" class="filter-btn text-gallery-ink dark:text-gallery-darkInk underline underline-offset-4">All Works</button>
+                <button onclick="filterProjects('Residential')" data-filter="Residential" class="filter-btn text-gallery-muted dark:text-gallery-darkMuted">Residential</button>
+                <button onclick="filterProjects('Commercial')" data-filter="Commercial" class="filter-btn text-gallery-muted dark:text-gallery-darkMuted">Commercial</button>
+                <button onclick="filterProjects('Exterior — Interior')" data-filter="Exterior — Interior" class="filter-btn text-gallery-muted dark:text-gallery-darkMuted">Exterior — Interior</button>
+                <button onclick="filterProjects('Supporting & Visual')" data-filter="Supporting & Visual" class="filter-btn text-gallery-muted dark:text-gallery-darkMuted">Supporting</button>
+            </div>
+            <div class="flex items-center space-x-4 shrink-0 pl-4 border-l border-stone-300 dark:border-stone-800">
+                <a href="#studio" class="text-gallery-muted dark:text-gallery-darkMuted">Studio</a>
+                <a href="#contact" class="text-gallery-muted dark:text-gallery-darkMuted">Contact</a>
+            </div>
         </div>
     </header>
 
-    <main>
-        <div class="intro-statement">
-            <span>Selected Architectural Works — DDD Space</span>
-            Menemukan keselarasan dalam berarsitektur. Dirancang terukur, dibangun berkarakter dari hunian hingga ruang komersial.
-        </div>
+    <!-- ================= MAIN GALLERY CANVAS ================= -->
+    <main class="max-w-[1440px] mx-auto px-5 sm:px-10 md:px-16 pt-10 sm:pt-16 pb-32">
 
-        <!-- GRID VIEW -->
-        <div id="view-grid" class="grid-container"></div>
+        <!-- 01. FEATURED EDITORIAL HERO (PRESTIGE & LUGAS STATEMENT) -->
+        <section class="mb-24 sm:mb-36">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-6">
+                <div class="lg:col-span-8">
+                    <!-- Prestige Jargon Switcher / Label -->
+                    <div class="flex flex-wrap items-center gap-2 font-mono text-[10px] tracking-[0.2em] uppercase text-gallery-muted dark:text-gallery-darkMuted mb-2.5">
+                        <span id="hero-jargon-badge" contenteditable="false" onblur="saveHeroField('jargon', this.innerText)">SELECTED ARCHITECTURAL WORKS — CURATED FOR DISTINCTION</span>
+                    </div>
+                    <h1 id="hero-main-headline" contenteditable="false" onblur="saveHeroField('headline', this.innerText)" class="font-serif text-2xl sm:text-4xl md:text-[44px] leading-[1.15] font-normal tracking-tight text-gallery-ink dark:text-gallery-darkInk">Menemukan kesesuaian dalam berarsitektur. Dirancang terukur, dibangun berkarakter.</h1>
+                </div>
+                <div class="lg:col-span-4 lg:text-right">
+                    <p id="hero-sub-meta" contenteditable="false" onblur="saveHeroField('submeta', this.innerText)" class="font-mono text-[11px] leading-relaxed text-gallery-muted dark:text-gallery-darkMuted">
+                        DDD SPACE BY SATYOWIDIASA<br>
+                        Residential · Commercial · Exterior — Interior · Supporting
+                    </p>
+                </div>
+            </div>
 
-        <!-- INDEX LIST VIEW -->
-        <div id="view-index" class="index-list"></div>
+            <!-- Hero Unframed Canvas -->
+            <div class="group relative">
+                <div class="arch-image-wrap w-full aspect-[16/10] sm:aspect-[16/8.5] bg-stone-200 dark:bg-stone-900 cursor-pointer editable-img-trigger" onclick="handleHeroClick()">
+                    <img id="hero-render-img" 
+                         src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85" 
+                         alt="Featured Project — DDD Space by Satyowidiasa"
+                         onerror="this.src='https://placehold.co/1600x900/EAE8E1/78756F?text=SATYOWIDIASA+SELECTED+PROJECT'"
+                         class="arch-image w-full h-full object-cover object-center">
+                    
+                    <!-- Subtle badge when user is in Edit Portfolio mode -->
+                    <div id="hero-replace-badge" class="hidden absolute top-4 right-4 bg-stone-900/90 text-white font-mono text-[10px] tracking-widest uppercase px-3.5 py-2 backdrop-blur-sm shadow-lg">
+                        + Klik Gambar untuk Ganti Foto Utama (Hero)
+                    </div>
+                </div>
+
+                <!-- Minimalist Under-Caption (Editable directly in Edit Mode) -->
+                <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono text-[11px] tracking-[0.08em] text-gallery-muted dark:text-gallery-darkMuted">
+                    <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                        <span id="hero-caption-code" contenteditable="false" onblur="saveHeroField('code', this.innerText)" class="text-gallery-ink dark:text-gallery-darkInk font-medium">00 / FEATURED COMMISSION</span>
+                        <span>—</span>
+                        <span id="hero-caption-title" contenteditable="false" onblur="saveHeroField('title', this.innerText)" class="text-gallery-ink dark:text-gallery-darkInk">Modern Tropics &amp; Spatial Harmony Residence</span>
+                        <span class="hidden sm:inline">·</span>
+                        <span id="hero-caption-category" contenteditable="false" onblur="saveHeroField('category', this.innerText)">Architecture, Exterior &amp; Interior</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span id="hero-caption-scale" contenteditable="false" onblur="saveHeroField('scale', this.innerText)">Private Residence — 2026</span>
+                        <button onclick="openProjectModal(0)" class="underline underline-offset-4 text-gallery-ink dark:text-gallery-darkInk hover:opacity-70">Explore Project →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02. SELECTED WORKS (PRESTIGE ARCHIVE + EDITABLE CAPTIONS) -->
+        <section id="works" class="mb-32 sm:mb-44 scroll-mt-24">
+            <div class="flex flex-col md:flex-row md:items-end justify-between pb-5 hairline-b mb-12 sm:mb-16 gap-4">
+                <div>
+                    <span class="font-mono text-[10px] tracking-[0.22em] uppercase text-gallery-muted dark:text-gallery-darkMuted block mb-1.5">
+                        Curated Portfolio / Selected Commissions
+                    </span>
+                    <h2 class="font-serif text-2xl sm:text-3xl md:text-4xl font-normal tracking-wide">
+                        Selected Works — <span class="italic text-gallery-muted dark:text-gallery-darkMuted">Karya Terpilih</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-gallery-muted dark:text-gallery-darkMuted font-light mt-1.5 max-w-2xl">
+                        Setiap proyek dikurasi secara personal untuk menemukan titik temu paling tepat antara fungsi, estetika ruang, dan karakter penghuninya—mulai dari skala hunian privat hingga ruang komersial.
+                    </p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3 font-mono text-[11px] text-gallery-muted dark:text-gallery-darkMuted shrink-0">
+                    <span id="project-count-label">06 Selected Commissions</span>
+                    <button onclick="openStudioManager('add')" class="admin-only-ui px-3.5 py-1.5 bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-900 hover:opacity-85 transition-opacity uppercase tracking-wider text-[10px]">
+                        + Tambah / Kelola Proyek
+                    </button>
+                </div>
+            </div>
+
+            <!-- Edit Mode Helper Banner (Hidden unless Edit Mode is active) -->
+            <div id="edit-mode-banner" class="hidden mb-12 p-4 sm:p-5 bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-900 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <div class="font-mono text-[11px] tracking-[0.16em] uppercase font-medium flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        Mode Edit Portofolio Aktif
+                    </div>
+                    <p class="text-xs opacity-85 font-light">
+                        • <strong>Ganti Foto:</strong> Klik pada foto proyek mana saja untuk mengunggah gambar proyek Anda.<br>
+                        • <strong>Edit Keterangan:</strong> Klik langsung pada teks <em>Judul, Kategori, Lokasi/Skala, Tahun, atau Deskripsi</em> di bawah foto untuk mengubah tulisannya. Semua perubahan tersimpan otomatis.
+                    </p>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button onclick="resetPortfolioData()" class="font-mono text-[10px] tracking-wider uppercase px-3 py-2 border border-stone-600 dark:border-stone-400 hover:opacity-80">
+                        Reset Default
+                    </button>
+                    <button onclick="toggleReplaceMode()" class="font-mono text-[10px] tracking-wider uppercase px-4 py-2 bg-emerald-600 text-white hover:bg-emerald-500">
+                        Selesai Edit ✓
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW A: EDITORIAL ASYMMETRIC GRID VIEW (Default) -->
+            <div id="portfolio-grid-view" class="grid grid-cols-1 md:grid-cols-12 gap-y-20 sm:gap-y-28 md:gap-x-10 lg:gap-x-14 items-start">
+                <!-- Populated dynamically via JS for clean filtering, image replacement & direct caption editing -->
+            </div>
+
+            <!-- VIEW B: ARCHITECTURAL ARCHIVE INDEX VIEW (Andra Matin / OMA Inspired Table) -->
+            <div id="portfolio-index-view" class="hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="hairline-b font-mono text-[10px] tracking-[0.18em] uppercase text-gallery-muted dark:text-gallery-darkMuted">
+                                <th class="py-3.5 pr-4 font-normal w-16">No.</th>
+                                <th class="py-3.5 px-4 font-normal">Selected Project</th>
+                                <th class="py-3.5 px-4 font-normal hidden sm:table-cell">Typology</th>
+                                <th class="py-3.5 px-4 font-normal hidden md:table-cell">Scope &amp; Character</th>
+                                <th class="py-3.5 px-4 font-normal">Scale / Area</th>
+                                <th class="py-3.5 pl-4 font-normal text-right">Year</th>
+                            </tr>
+                        </thead>
+                        <tbody id="portfolio-index-tbody" class="divide-y divide-[#E6E4DF] dark:divide-[#262624] font-sans text-sm">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03. STUDIO & SERVICES (DDD SPACE BY SATYOWIDIASA — ARCHITECTURAL ALIGNMENT) -->
+        <section id="studio" class="mb-32 sm:mb-44 pt-12 hairline-t scroll-mt-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+                
+                <!-- Left Column: Studio Philosophy (Lugas, Tidak Kaku, Prestige) -->
+                <div class="lg:col-span-5">
+                    <span class="font-mono text-[10px] tracking-[0.22em] uppercase text-gallery-muted dark:text-gallery-darkMuted block mb-3">
+                        02 / The Studio &amp; Philosophy
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-normal leading-tight mb-3">
+                        DDD SPACE<br>
+                        <span class="italic font-normal text-gallery-muted dark:text-gallery-darkMuted">by Satyowidiasa</span>
+                    </h2>
+                    <p class="font-mono text-[11px] tracking-[0.14em] uppercase text-gallery-ink dark:text-gallery-darkInk mb-6 pb-4 hairline-b">
+                        “Space for Architectural Alignment — Ruang untuk Menemukan Kesesuaian dalam Berarsitektur.”
+                    </p>
+                    <p class="text-sm sm:text-[15px] leading-relaxed text-stone-700 dark:text-stone-300 mb-5 font-light">
+                        <strong class="font-normal text-gallery-ink dark:text-gallery-darkInk">DDD SPACE</strong> hadir bukan sekadar sebagai biro gambar, melainkan ruang diskusi dan perancangan untuk menemukan titik temu paling selaras antara visi Anda, fungsi bangunan, konteks tapak, dan kejujuran material.
+                    </p>
+                    <p class="text-sm sm:text-[15px] leading-relaxed text-stone-700 dark:text-stone-300 mb-6 font-light">
+                        Fokus kami mencakup keseluruhan ekosistem berarsitektur secara utuh. Mulai dari pengolahan massa bangunan eksterior, tata ruang dalam (interior), hingga elemen pendukung arsitektural—baik untuk skala hunian privat (<em>residential</em>) maupun ruang bisnis (<em>commercial</em>) yang membutuhkan identitas kuat.
+                    </p>
+
+                    <!-- Curated Prestige Jargon Box -->
+                    <div class="p-5 bg-gallery-surface dark:bg-gallery-darkSurface border-l-2 border-stone-800 dark:border-stone-200">
+                        <span class="font-mono text-[9px] tracking-[0.2em] uppercase text-gallery-muted dark:text-gallery-darkMuted block mb-1">
+                            Commitment to Clients
+                        </span>
+                        <p class="font-serif text-lg sm:text-xl italic text-gallery-ink dark:text-gallery-darkInk">
+                            “Every project is a selected work. Bespoke spatial solutions, tailored exclusively to your way of living and working.”
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Column: Full Architectural Scope (Residential to Commercial, Exterior to Interior) -->
+                <div class="lg:col-span-7 lg:pl-8">
+                    <div class="mb-6">
+                        <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-gallery-muted dark:text-gallery-darkMuted">
+                            Comprehensive Architectural Scope
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 pb-12 hairline-b">
+                        <!-- Pillar 01: Residential -->
+                        <div>
+                            <span class="font-mono text-[10px] tracking-[0.2em] text-gallery-muted dark:text-gallery-darkMuted uppercase block mb-2">
+                                01 / Residential Architecture
+                            </span>
+                            <h3 class="font-serif text-xl font-normal mb-2.5">Hunian Privat &amp; Villa</h3>
+                            <p class="text-xs sm:text-sm leading-relaxed text-gallery-muted dark:text-gallery-darkMuted font-light">
+                                Perancangan rumah tinggal baru, renovasi menyeluruh, maupun *private villa*. Mengutamakan kenyamanan jangka panjang, sirkulasi udara dan cahaya alami yang sehat, serta privasi penghuni.
+                            </p>
+                        </div>
+
+                        <!-- Pillar 02: Commercial -->
+                        <div>
+                            <span class="font-mono text-[10px] tracking-[0.2em] text-gallery-muted dark:text-gallery-darkMuted uppercase block mb-2">
+                                02 / Commercial &amp; Hospitality
+                            </span>
+                            <h3 class="font-serif text-xl font-normal mb-2.5">Ruang Komersial &amp; Bisnis</h3>
+                            <p class="text-xs sm:text-sm leading-relaxed text-gallery-muted dark:text-gallery-darkMuted font-light">
+                                Desain arsitektur untuk *office space*, *boutique retail*, *cafe/restaurant*, hingga *hospitality*. Dirancang lugas untuk memperkuat citra *brand* sekaligus mengoptimalkan alur pengunjung.
+                            </p>
+                        </div>
+
+                        <!-- Pillar 03: Exterior & Interior Integration -->
+                        <div>
+                            <span class="font-mono text-[10px] tracking-[0.2em] text-gallery-muted dark:text-gallery-darkMuted uppercase block mb-2">
+                                03 / Exterior — Interior Continuity
+                            </span>
+                            <h3 class="font-serif text-xl font-normal mb-2.5">Kesatuan Eksterior &amp; Interior</h3>
+                            <p class="text-xs sm:text-sm leading-relaxed text-gallery-muted dark:text-gallery-darkMuted font-light">
+                                Menghadirkan bahasa desain yang menyatu dari fasad bangunan, lanskap teras, hingga detail ruang dalam dan furnitur *custom*—sehingga bangunan terasa utuh dari luar ke dalam.
+                            </p>
+                        </div>
+
+                        <!-- Pillar 04: Architectural Support & Visualization -->
+                        <div>
+                            <span class="font-mono text-[10px] tracking-[0.2em] text-gallery-muted dark:text-gallery-darkMuted uppercase block mb-2">
+                                04 / Technical &amp; Visual Support
+                            </span>
+                            <h3 class="font-serif text-xl font-normal mb-2.5">Perencanaan Teknis &amp; Visualisasi</h3>
+                            <p class="text-xs sm:text-sm leading-relaxed text-gallery-muted dark:text-gallery-darkMuted font-light">
+                                Penyusunan denah tata ruang (*spatial layout*), gambar pengembangan desain, kurasi material, serta visualisasi arsitektur 3D presisi agar setiap keputusan desain jelas sebelum dibangun.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Direct Inquiry Callout -->
+                    <div class="pt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-gallery-muted dark:text-gallery-darkMuted block">
+                                Private Consultation
+                            </span>
+                            <p class="font-serif text-lg sm:text-xl mt-0.5">
+                                Mari diskusikan kesesuaian ruang untuk rencana proyek Anda.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3 shrink-0">
+                            <a href="mailto:contact@satyowidiasa.com?subject=Project%20Consultation%20—%20DDD%20Space" class="inline-flex items-center justify-center font-mono text-[11px] tracking-[0.16em] uppercase px-5 py-3 bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-900 hover:opacity-85 transition-opacity">
+                                Email Studio →
+                            </a>
+                            <a href="https://instagram.com/satyowidiasa" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center font-mono text-[11px] tracking-[0.16em] uppercase px-5 py-3 border border-stone-800 dark:border-stone-200 hover:bg-stone-900 hover:text-stone-100 dark:hover:bg-stone-100 dark:hover:text-stone-900 transition-colors">
+                                IG @satyowidiasa ↗
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Direct Contact: Email contact@satyowidiasa.com & info@dddspace.com -->
+                <div class="md:col-span-4">
+                    <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-gallery-muted dark:text-gallery-darkMuted block mb-3">
+                        Direct Electronic Mail
+                    </span>
+                    <div class="space-y-3 font-mono text-xs sm:text-sm">
+                        <div>
+                            <span class="text-gallery-muted dark:text-gallery-darkMuted text-[11px] block mb-0.5">Primary Inquiry &amp; Commissions:</span>
+                            <div class="flex items-center gap-3">
+                                <a href="mailto:contact@satyowidiasa.com" class="font-medium text-gallery-ink dark:text-gallery-darkInk underline underline-offset-4 hover:opacity-75">
+                                    contact@satyowidiasa.com
+                                </a>
+                                <button onclick="copyContactEmail('contact@satyowidiasa.com', 'btn-copy-email')" id="btn-copy-email" class="text-[10px] uppercase tracking-wider px-2 py-0.5 border border-stone-300 dark:border-stone-700 text-gallery-muted dark:text-gallery-darkMuted hover:text-gallery-ink dark:hover:text-gallery-darkInk transition-colors">
+                                    Copy
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-gallery-muted dark:text-gallery-darkMuted text-[11px] block mb-0.5">Studio Desk (DDD Space):</span>
+                            <div class="flex items-center gap-3">
+                                <a href="mailto:info@dddspace.com" class="text-gallery-ink dark:text-gallery-darkInk hover:underline underline-offset-4">
+                                    info@dddspace.com
+                                </a>
+                                <button onclick="copyContactEmail('info@dddspace.com', 'btn-copy-ddd')" id="btn-copy-ddd" class="text-[10px] uppercase tracking-wider px-2 py-0.5 border border-stone-300 dark:border-stone-700 text-gallery-muted dark:text-gallery-darkMuted hover:text-gallery-ink dark:hover:text-gallery-darkInk transition-colors">
+                                    Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Direct Instagram Link: @satyowidiasa -->
+                <div class="md:col-span-3 flex flex-col justify-between">
+                    <div>
+                        <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-gallery-muted dark:text-gallery-darkMuted block mb-3">
+                            Social &amp; Visual Archive
+                        </span>
+                        <ul class="font-mono text-xs space-y-2.5 text-gallery-muted dark:text-gallery-darkMuted">
+                            <li>
+                                <a href="https://instagram.com/satyowidiasa" target="_blank" rel="noopener noreferrer" class="text-gallery-ink dark:text-gallery-darkInk font-medium hover:underline underline-offset-4 flex items-center gap-1.5">
+                                    <span>Instagram / @satyowidiasa</span>
+                                    <span>↗</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:contact@satyowidiasa.com?subject=Consultation%20Request%20—%20DDD%20Space" class="hover:text-gallery-ink dark:hover:text-gallery-darkInk transition-colors">
+                                    Request Portfolio PDF / Quotation ↗
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-6 hairline-t flex flex-col sm:flex-row items-center justify-between font-mono text-[10px] tracking-[0.15em] uppercase text-gallery-muted dark:text-gallery-darkMuted gap-4">
+                <span>© 2026 DDD SPACE BY SATYOWIDIASA. SELECTED ARCHITECTURAL WORKS.</span>
+                <div class="flex items-center gap-4">
+                    <span>satyowidiasa.com</span>
+                    <!-- Subtle Secret Trigger so the owner can ALWAYS open Studio Manager even on the live public site -->
+                    <button onclick="openStudioManager('list')" class="opacity-50 hover:opacity-100 transition-opacity underline underline-offset-4" title="Buka Panel Kelola & Tambah Proyek">
+                        [ ⚙ Studio Manager ]
+                    </button>
+                </div>
+            </div>
+        </footer>
+
     </main>
 
-    <!-- DETAIL MODAL -->
-    <div id="modal">
-        <div class="modal-close" onclick="closeModal()">Tutup [✕]</div>
-        <div class="modal-body" id="modal-content"></div>
+    <!-- ================= FLOATING HOVER IMAGE PREVIEW (FOR INDEX LIST VIEW) ================= -->
+    <div id="hover-preview-container" class="fixed z-50 w-72 sm:w-80 aspect-[4/3] bg-stone-200 dark:bg-stone-800 shadow-2xl overflow-hidden opacity-0 scale-95 hidden md:block">
+        <img id="hover-preview-img" src="" alt="Preview" class="w-full h-full object-cover">
+        <div class="absolute bottom-0 inset-x-0 bg-black/70 backdrop-blur-xs px-3 py-1.5 font-mono text-[10px] text-stone-200 flex justify-between">
+            <span id="hover-preview-code">01</span>
+            <span id="hover-preview-spec">Selected Work</span>
+        </div>
     </div>
 
-    <footer>
-        <div>
-            <p style="font-weight: 500; color: var(--text); margin-bottom: 4px;">DDD SPACE — by Satyowidiasa</p>
-            <p>Studio Arsitektur, Interior, & Visualisasi Ruang</p>
-        </div>
-        <div style="display: flex; gap: 24px;">
-            <a href="mailto:contact@satyowidiasa.com">contact@satyowidiasa.com</a>
-            <a href="https://instagram.com/satyowidiasa" target="_blank">Instagram @satyowidiasa</a>
-        </div>
-    </footer>
+    <!-- ================= PROJECT DETAIL & EDITOR LIGHTBOX MODAL ================= -->
+    <div id="project-modal" class="fixed inset-0 z-50 hidden bg-[#FAF9F6]/95 dark:bg-[#111110]/95 backdrop-blur-md overflow-y-auto">
+        <div class="max-w-[1360px] mx-auto px-5 sm:px-10 md:px-16 py-8 sm:py-12 min-h-screen flex flex-col justify-between">
+            
+            <!-- Modal Top Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-4 hairline-b">
+                <div class="font-mono text-[11px] tracking-[0.18em] uppercase text-gallery-muted dark:text-gallery-darkMuted">
+                    <span id="modal-index">01</span> / <span id="modal-category">RESIDENTIAL</span> — SELECTED COMMISSION
+                </div>
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <button onclick="replaceCurrentModalImage()" class="font-mono text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 border border-stone-400 dark:border-stone-700 hover:bg-stone-900 hover:text-white dark:hover:bg-stone-100 dark:hover:text-stone-900 transition-colors">
+                        Ganti Foto Proyek Ini
+                    </button>
+                    <button onclick="closeProjectModal()" class="font-mono text-xs tracking-[0.2em] uppercase py-1 px-2 hover:opacity-60">
+                        Close [ESC] ✕
+                    </button>
+                </div>
+            </div>
 
-    <script>
-        // DATA PROYEK ARSITEKTUR ANDA
-        const projects = [
+            <!-- Modal Center Content (Editable inside Modal too!) -->
+            <div class="my-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div class="lg:col-span-8 bg-stone-200 dark:bg-stone-900 relative group">
+                    <img id="modal-img" src="" alt="Project Full View" class="w-full max-h-[72vh] object-contain mx-auto">
+                </div>
+                <div class="lg:col-span-4 space-y-6">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span id="modal-year-area" class="font-mono text-[11px] tracking-[0.15em] text-gallery-muted dark:text-gallery-darkMuted uppercase">
+                                2026 — Architectural Study
+                            </span>
+                            <span class="font-mono text-[9px] uppercase tracking-widest text-gallery-muted dark:text-gallery-darkMuted">
+                                (Klik teks untuk edit)
+                            </span>
+                        </div>
+                        <h3 id="modal-title" contenteditable="true" onblur="updateModalProjectField('title', this.innerText)" class="font-serif text-2xl sm:text-3xl font-normal leading-snug border-b border-transparent focus:border-stone-400 focus:outline-none">
+                            Project Title
+                        </h3>
+                    </div>
+
+                    <p id="modal-desc" contenteditable="true" onblur="updateModalProjectField('description', this.innerText)" class="text-sm leading-relaxed text-stone-600 dark:text-stone-300 font-light border-b border-transparent focus:border-stone-400 focus:outline-none">
+                        Description of the spatial layout and architectural study.
+                    </p>
+
+                    <div class="pt-4 hairline-t space-y-2.5 font-mono text-[11px]">
+                        <div class="flex justify-between gap-4">
+                            <span class="text-gallery-muted dark:text-gallery-darkMuted shrink-0">STUDIO:</span>
+                            <span class="text-right">DDD SPACE by Satyowidiasa</span>
+                        </div>
+                        <div class="flex justify-between gap-4">
+                            <span class="text-gallery-muted dark:text-gallery-darkMuted shrink-0">CATEGORY:</span>
+                            <span id="modal-cat-edit" contenteditable="true" onblur="updateModalProjectField('category', this.innerText)" class="text-right border-b border-dashed border-stone-400/50 focus:outline-none">Residential</span>
+                        </div>
+                        <div class="flex justify-between gap-4">
+                            <span class="text-gallery-muted dark:text-gallery-darkMuted shrink-0">LOCATION / CONTEXT:</span>
+                            <span id="modal-location" contenteditable="true" onblur="updateModalProjectField('location', this.innerText)" class="text-right border-b border-dashed border-stone-400/50 focus:outline-none">Indonesia</span>
+                        </div>
+                        <div class="flex justify-between gap-4">
+                            <span class="text-gallery-muted dark:text-gallery-darkMuted shrink-0">SCOPE / CHARACTER:</span>
+                            <span id="modal-lighting" contenteditable="true" onblur="updateModalProjectField('lighting', this.innerText)" class="text-right border-b border-dashed border-stone-400/50 focus:outline-none">Architecture &amp; Exterior</span>
+                        </div>
+                        <div class="flex justify-between gap-4">
+                            <span class="text-gallery-muted dark:text-gallery-darkMuted shrink-0">KEY ELEMENTS:</span>
+                            <span id="modal-materials" contenteditable="true" onblur="updateModalProjectField('materials', this.innerText)" class="text-right border-b border-dashed border-stone-400/50 focus:outline-none">Tropical Massing, Natural Light</span>
+                        </div>
+                        <div class="flex justify-between gap-4">
+                            <span class="text-gallery-muted dark:text-gallery-darkMuted shrink-0">SCALE / AREA:</span>
+                            <span id="modal-area-edit" contenteditable="true" onblur="updateModalProjectField('scale', this.innerText)" class="text-right border-b border-dashed border-stone-400/50 focus:outline-none">240 m²</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex flex-col sm:flex-row gap-2.5">
+                        <a id="modal-inquiry-mailto" href="mailto:contact@satyowidiasa.com?subject=Inquiry%20—%20Selected%20Architectural%20Work" class="flex-1 text-center font-mono text-[11px] tracking-[0.16em] uppercase py-3 bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-900 hover:opacity-90 transition-opacity">
+                            Tanyakan Proyek Serupa →
+                        </a>
+                        <a href="https://instagram.com/satyowidiasa" target="_blank" rel="noopener noreferrer" class="text-center font-mono text-[11px] tracking-[0.16em] uppercase py-3 px-4 border border-stone-800 dark:border-stone-200 hover:bg-stone-900 hover:text-stone-100 dark:hover:bg-stone-100 dark:hover:text-stone-900 transition-colors">
+                            IG @satyowidiasa ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Bottom Navigation -->
+            <div class="pt-4 hairline-t flex items-center justify-between font-mono text-[11px] tracking-[0.15em] uppercase text-gallery-muted dark:text-gallery-darkMuted">
+                <button onclick="navigateModal(-1)" class="hover:text-gallery-ink dark:hover:text-gallery-darkInk">← Previous Selected</button>
+                <span>DDD SPACE ARCHIVE</span>
+                <button onclick="navigateModal(1)" class="hover:text-gallery-ink dark:hover:text-gallery-darkInk">Next Selected →</button>
+            </div>
+        </div>
+    </div>
+        /*__START_HERO_DATA__*/
+        const defaultHeroData = {
+            jargon: "SELECTED ARCHITECTURAL WORKS — CURATED FOR DISTINCTION",
+            headline: "Menemukan kesesuaian dalam berarsitektur. Dirancang terukur, dibangun berkarakter.",
+            submeta: "DDD SPACE BY SATYOWIDIASA\nResidential · Commercial · Exterior — Interior · Supporting",
+            code: "00 / FEATURED COMMISSION",
+            title: "Modern Tropics & Spatial Harmony Residence",
+            category: "Architecture, Exterior & Interior",
+            scale: "Private Residence — 2026",
+            image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85"
+        };
+        /*__END_HERO_DATA__*/
+
+        /*__START_PROJECTS_DATA__*/
+        const defaultProjectsData = [
             {
                 id: "01",
-                title: "Residensial Kayu & Stainless",
-                category: "Residential / Interior & Exterior",
-                scale: "180 m²",
+                title: "Tropica Courtyard Residence",
+                category: "Residential",
+                scale: "280 m²",
                 year: "2026",
-                location: "Sidoarjo",
-                image: "images/proyek1.jpg",
-                description: "Eksplorasi panel dinding kayu hangat dipadu aksen stainless steel dan pencahayaan netral 4000K untuk menciptakan atmosfer hunian yang presisi dan elegan."
+                location: "Private Commission",
+                layoutSize: "large",
+                lighting: "Architecture, Exterior & Spatial Plan",
+                materials: "Exposed Concrete, Natural Timber, Clear Glass",
+                image: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1400&q=85",
+                description: "Perancangan hunian privat yang mengutamakan keselarasan antara massa bangunan eksterior, bukaan taman dalam (courtyard), dan kenyamanan sirkulasi ruang keluarga."
             },
             {
                 id: "02",
-                title: "Komersial & Ruang Kreatif",
-                category: "Commercial / Public Space",
-                scale: "320 m²",
+                title: "Kala Commercial & Roastery Space",
+                category: "Commercial",
+                scale: "220 m²",
+                year: "2026",
+                location: "Urban Commercial",
+                layoutSize: "medium",
+                lighting: "Commercial Facade & Interior Flow",
+                materials: "Textured Plaster, Brushed Steel, Warm Oak",
+                image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85",
+                description: "Eksplorasi ruang komersial yang lugas dan berkarakter. Menyatukan fasad eksterior yang mengundang dengan alur tata ruang dalam yang fungsional bagi pengunjung."
+            },
+            {
+                id: "03",
+                title: "Monolith Facade & Exterior Study",
+                category: "Exterior — Interior",
+                scale: "340 m²",
+                year: "2026",
+                location: "Architectural Massing",
+                layoutSize: "medium",
+                lighting: "Building Envelope & Tropical Shading",
+                materials: "Architectural Concrete, Secondary Skin, Landscape",
+                image: "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1200&q=85",
+                description: "Pengolahan fasad dan gubahan massa eksterior yang merespons arah matahari tropis secara elegan, menciptakan garis bayangan tegas sekaligus menjaga keteduhan bangunan."
+            },
+            {
+                id: "04",
+                title: "Warm Timber & Brushed Steel Living",
+                category: "Exterior — Interior",
+                scale: "145 m²",
+                year: "2026",
+                location: "Interior & Custom Elements",
+                layoutSize: "large",
+                lighting: "Interior Architecture & 4000K Ambience",
+                materials: "Teak Wood Paneling, Stainless Steel, Muted Wall",
+                image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85",
+                description: "Keselarasan ruang dalam yang menggabungkan kehangatan panel kayu dengan presisi stainless steel dan pencahayaan netral yang tenang."
+            },
+            {
+                id: "05",
+                title: "Atelier & Creative Office HQ",
+                category: "Commercial",
+                scale: "310 m²",
                 year: "2025",
-                location: "Jawa Timur",
-                image: "images/proyek2.jpg",
-                description: "Tata letak ruang komersial yang mengutamakan kesinambungan alur sirkulasi pengunjung serta estetika visual fasad luar dan interior."
+                location: "Workspace Architecture",
+                layoutSize: "wide",
+                lighting: "Commercial Spatial Planning & Exterior",
+                materials: "Raw Concrete, Acoustic Timber, Diffused Daylight",
+                image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85",
+                description: "Perancangan studio dan kantor komersial dengan konsep ruang terbuka yang mendukung kolaborasi, dilengkapi pencahayaan alami merata dan akustik ruang yang terukur."
+            },
+            {
+                id: "06",
+                title: "Linear Pavilion & Spatial Study",
+                category: "Supporting & Visual",
+                scale: "190 m²",
+                year: "2025",
+                location: "Technical & 3D Visualization",
+                layoutSize: "wide",
+                lighting: "Full Architectural Design & 4K Visualization",
+                materials: "Vertical Timber Louvers, Microcement, Glass",
+                image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85",
+                description: "Kesinambungan antara perencanaan teknis tata ruang, kurasi material, dan visualisasi arsitektural presisi sebelum tahap pembangunan."
             }
         ];
+        /*__END_PROJECTS_DATA__*/
 
-        let currentView = 'grid';
+        // ==========================================================================
+        // BATAS AREA DATA — KODE DI BAWAH INI MENGATUR TAMPILAN OTOMATIS
+        // ==========================================================================
 
-        function renderProjects() {
-            const gridEl = document.getElementById('view-grid');
-            const indexEl = document.getElementById('view-index');
-            
-            gridEl.innerHTML = '';
-            indexEl.innerHTML = '';
+        const STORAGE_KEY_PROJECTS = 'dddspace_satyowidiasa_projects_v3';
+        const STORAGE_KEY_HERO = 'dddspace_satyowidiasa_hero_v3';
 
-            projects.forEach((p, index) => {
-                // Render Grid
-                gridEl.innerHTML += `
-                    <div class="project-card" onclick="openModal(${index})">
-                        <div class="project-img-wrap">
-                            <img src="${p.image}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'">
-                        </div>
-                        <div class="project-meta">
-                            <span class="project-title">${p.title}</span>
-                            <span>${p.category} — ${p.year}</span>
-                        </div>
-                    </div>
-                `;
+        let projectsData = JSON.parse(JSON.stringify(defaultProjectsData));
+        let heroData = JSON.parse(JSON.stringify(defaultHeroData));
 
-                // Render Index List
-                indexEl.innerHTML += `
-                    <div class="index-row" onclick="openModal(${index})">
-                        <span style="color:var(--muted)">${p.id}</span>
-                        <span class="title">${p.title}</span>
-                        <span style="color:var(--muted)">${p.category}</span>
-                        <span>${p.location}</span>
-                        <span style="text-align: right; color:var(--muted);">${p.year}</span>
-                    </div>
-                `;
+        try {
+            const savedProjects = localStorage.getItem(STORAGE_KEY_PROJECTS);
+            if (savedProjects) projectsData = JSON.parse(savedProjects);
+            const savedHero = localStorage.getItem(STORAGE_KEY_HERO);
+            if (savedHero) heroData = Object.assign({}, defaultHeroData, JSON.parse(savedHero));
+        } catch (e) {
+            console.warn('Local storage access skipped:', e);
+        }
+
+        let currentFilter = 'all';
+        let currentViewMode = 'grid'; // 'grid' or 'index'
+        let currentModalIndex = 0;
+        let replaceModeActive = false;
+        let targetReplaceSlot = null;
+
+        // Map simple layoutSize ('large', 'medium', 'wide') to Andra Matin asymmetrical grid classes
+        function getLayoutClasses(layoutSize, index) {
+            const isOddRow = index % 2 === 1;
+            if (layoutSize === 'large') {
+                return {
+                    colSpan: 'md:col-span-7',
+                    aspect: 'aspect-[16/10]',
+                    offset: isOddRow ? 'md:mt-16' : ''
+                };
+            } else if (layoutSize === 'medium') {
+                return {
+                    colSpan: 'md:col-span-5',
+                    aspect: 'aspect-[4/5]',
+                    offset: isOddRow ? 'md:mt-16' : ''
+                };
+            } else {
+                return {
+                    colSpan: 'md:col-span-6',
+                    aspect: 'aspect-[4/3]',
+                    offset: isOddRow ? 'md:mt-12' : ''
+                };
+            }
+        }
+
+        function renumberProjectIds() {
+            projectsData.forEach((p, idx) => {
+                p.id = String(idx + 1).padStart(2, '0');
             });
         }
 
-        function switchView(view) {
-            currentView = view;
-            document.getElementById('btn-grid').classList.toggle('active', view === 'grid');
-            document.getElementById('btn-index').classList.toggle('active', view === 'index');
-            
-            document.getElementById('view-grid').style.display = view === 'grid' ? 'grid' : 'none';
-            document.getElementById('view-index').style.display = view === 'index' ? 'flex' : 'none';
+        function saveProjectsToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY_PROJECTS, JSON.stringify(projectsData));
+            } catch (e) {
+                console.warn('Storage limit reached:', e);
+            }
         }
 
-        function openModal(index) {
-            const p = projects[index];
-            const modalContent = document.getElementById('modal-content');
-            modalContent.innerHTML = `
-                <span style="color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 8px;">${p.category} / ${p.year}</span>
-                <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4vw, 48px); margin-bottom: 24px; font-weight: 400;">${p.title}</h1>
-                <img src="${p.image}" class="modal-img" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'">
-                <div class="modal-grid">
-                    <div class="modal-desc">
-                        <p style="margin-bottom: 24px;">${p.description}</p>
-                        <a href="mailto:contact@satyowidiasa.com?subject=Konsultasi Proyek: ${p.title}" style="display: inline-block; background: #1A1A1A; color: #fff; padding: 14px 28px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none;">Tanyakan Proyek Serupa →</a>
-                    </div>
-                    <div class="specs-box">
-                        <div class="spec-item"><span>Skala / Luas</span><strong>${p.scale}</strong></div>
-                        <div class="spec-item"><span>Lokasi</span><strong>${p.location}</strong></div>
-                        <div class="spec-item"><span>Tahun</span><strong>${p.year}</strong></div>
-                        <div class="spec-item"><span>Cakupan</span><strong>Arsitektur & Visualisasi</strong></div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('modal').style.display = 'block';
+        function saveHeroField(key, value) {
+            heroData[key] = value.trim();
+            try {
+                localStorage.setItem(STORAGE_KEY_HERO, JSON.stringify(heroData));
+            } catch (e) {}
+        }
+
+        function applyHeroToDOM() {
+            document.getElementById('hero-jargon-badge').innerText = heroData.jargon || defaultHeroData.jargon;
+            document.getElementById('hero-main-headline').innerText = heroData.headline || defaultHeroData.headline;
+            document.getElementById('hero-sub-meta').innerText = heroData.submeta || defaultHeroData.submeta;
+            document.getElementById('hero-caption-code').innerText = heroData.code || defaultHeroData.code;
+            document.getElementById('hero-caption-title').innerText = heroData.title || defaultHeroData.title;
+            document.getElementById('hero-caption-category').innerText = heroData.category || defaultHeroData.category;
+            document.getElementById('hero-caption-scale').innerText = heroData.scale || defaultHeroData.scale;
+            document.getElementById('hero-render-img').src = heroData.image || defaultHeroData.image;
+        }
+
+        // Render both Editorial Grid and Archive Index Table
+        function renderPortfolio() {
+            const gridContainer = document.getElementById('portfolio-grid-view');
+            const indexTbody = document.getElementById('portfolio-index-tbody');
+            const countLabel = document.getElementById('project-count-label');
+            const managerBadge = document.getElementById('manager-count-badge');
+
+            if (managerBadge) managerBadge.textContent = projectsData.length;
+
+            const filtered = currentFilter === 'all' 
+                ? projectsData 
+                : projectsData.filter(p => p.category === currentFilter);
+
+            const formattedCount = String(filtered.length).padStart(2, '0');
+            countLabel.textContent = `${formattedCount} Selected Commission${filtered.length !== 1 ? 's' : ''}`;
+
+            // 1. Populate Asymmetric Grid View
+            gridContainer.innerHTML = filtered.map((proj, displayIdx) => {
+                const originalIndex = projectsData.findIndex(item => item.id === proj.id && item.title === proj.title);
+                const editableAttr = replaceModeActive ? 'contenteditable="true"' : 'contenteditable="false"';
+                const scaleValue = proj.scale || proj.area || '—';
+                const layout = getLayoutClasses(proj.layoutSize || 'large', displayIdx);
+
+                return `
+                    <article class="${layout.colSpan} ${layout.offset} group">
+                        <div class="arch-image-wrap w-full ${layout.aspect} mb-4 cursor-pointer editable-img-trigger" onclick="handleProjectCardClick(${originalIndex})">
+                            <img src="${proj.image}" 
+                                 alt="${proj.title}" 
+                                 onerror="this.src='https://placehold.co/1200x900/EAE8E1/78756F?text=${encodeURIComponent(proj.title)}'"
+                                 class="arch-image w-full h-full object-cover object-center">
+                            <div class="${replaceModeActive ? 'block' : 'hidden'} replace-overlay absolute top-3 right-3 bg-stone-900/90 text-white font-mono text-[10px] tracking-widest uppercase px-3 py-1.5 shadow-md">
+                                + Klik untuk Ganti Foto #${proj.id}
+                            </div>
+                        </div>
+
+                        <!-- Caption Header & Metadata -->
+                        <div class="flex items-baseline justify-between gap-4 pt-1">
+                            <div class="flex-1">
+                                <div class="font-mono text-[10px] tracking-[0.18em] uppercase text-gallery-muted dark:text-gallery-darkMuted mb-1 flex flex-wrap items-center gap-1.5">
+                                    <span>${proj.id} —</span>
+                                    <span ${editableAttr} onblur="updateProjectField(${originalIndex}, 'category', this.innerText)" title="Kategori">${proj.category}</span>
+                                    ${proj.location ? `<span>· ${proj.location}</span>` : ''}
+                                </div>
+                                <h3 ${editableAttr} 
+                                    onblur="updateProjectField(${originalIndex}, 'title', this.innerText)"
+                                    onclick="${!replaceModeActive ? `openProjectModal(${originalIndex})` : ''}"
+                                    class="font-serif text-xl sm:text-2xl font-normal text-gallery-ink dark:text-gallery-darkInk ${!replaceModeActive ? 'cursor-pointer group-hover:opacity-75' : ''} transition-opacity">
+                                    ${proj.title}
+                                </h3>
+                            </div>
+                            <div class="font-mono text-[11px] text-gallery-muted dark:text-gallery-darkMuted shrink-0 text-right">
+                                <span ${editableAttr} onblur="updateProjectField(${originalIndex}, 'scale', this.innerText)">${scaleValue}</span>
+                                <span class="mx-1">·</span>
+                                <span ${editableAttr} onblur="updateProjectField(${originalIndex}, 'year', this.innerText)">${proj.year}</span>
+                            </div>
+                        </div>
+
+                        <!-- Concise Project Caption Description -->
+                        <p ${editableAttr} 
+                           onblur="updateProjectField(${originalIndex}, 'description', this.innerText)"
+                           class="mt-2 text-xs sm:text-[13px] leading-relaxed text-gallery-muted dark:text-gallery-darkMuted font-light line-clamp-2">
+                            ${proj.description}
+                        </p>
+                    </article>
+                `;
+            }).join('');
+
+            // 2. Populate Archive Index View
+            indexTbody.innerHTML = filtered.map((proj) => {
+                const originalIndex = projectsData.findIndex(item => item.id === proj.id && item.title === proj.title);
+                const scaleValue = proj.scale || proj.area || '—';
+                return `
+                    <tr class="group cursor-pointer hover:bg-stone-200/50 dark:hover:bg-stone-900/60 transition-colors"
+                        onmouseenter="showHoverPreview(${originalIndex})"
+                        onmouseleave="hideHoverPreview()"
+                        onclick="openProjectModal(${originalIndex})">
+                        <td class="py-5 pr-4 font-mono text-xs text-gallery-muted dark:text-gallery-darkMuted">${proj.id}</td>
+                        <td class="py-5 px-4 font-serif text-lg sm:text-xl font-normal text-gallery-ink dark:text-gallery-darkInk group-hover:translate-x-1 transition-transform">
+                            ${proj.title}
+                        </td>
+                        <td class="py-5 px-4 font-mono text-[11px] uppercase tracking-wider text-gallery-muted dark:text-gallery-darkMuted hidden sm:table-cell">
+                            ${proj.category}
+                        </td>
+                        <td class="py-5 px-4 font-mono text-[11px] text-gallery-muted dark:text-gallery-darkMuted hidden md:table-cell">
+                            ${proj.lighting || proj.location || 'Selected Architectural Work'}
+                        </td>
+                        <td class="py-5 px-4 font-mono text-xs text-gallery-muted dark:text-gallery-darkMuted">${scaleValue}</td>
+                        <td class="py-5 pl-4 font-mono text-xs text-right text-gallery-muted dark:text-gallery-darkMuted">${proj.year} ↗</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateProjectField(index, field, newValue) {
+            if (projectsData[index]) {
+                projectsData[index][field] = newValue.trim();
+                if (field === 'scale') projectsData[index].area = newValue.trim();
+                saveProjectsToStorage();
+            }
+        }
+
+        function updateModalProjectField(field, newValue) {
+            if (projectsData[currentModalIndex]) {
+                projectsData[currentModalIndex][field] = newValue.trim();
+                if (field === 'scale') projectsData[currentModalIndex].area = newValue.trim();
+                saveProjectsToStorage();
+                renderPortfolio();
+            }
+        }
+
+        function resetPortfolioData() {
+            localStorage.removeItem(STORAGE_KEY_PROJECTS);
+            localStorage.removeItem(STORAGE_KEY_HERO);
+            projectsData = JSON.parse(JSON.stringify(defaultProjectsData));
+            heroData = JSON.parse(JSON.stringify(defaultHeroData));
+            applyHeroToDOM();
+            renderPortfolio();
+            renderManagerProjectList();
+        }
+
+        // Filter Handler
+        function filterProjects(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-filter') === category) {
+                    btn.classList.add('text-gallery-ink', 'dark:text-gallery-darkInk', 'underline', 'underline-offset-8');
+                    btn.classList.remove('text-gallery-muted', 'dark:text-gallery-darkMuted');
+                } else {
+                    btn.classList.remove('text-gallery-ink', 'dark:text-gallery-darkInk', 'underline', 'underline-offset-8');
+                    btn.classList.add('text-gallery-muted', 'dark:text-gallery-darkMuted');
+                }
+            });
+            renderPortfolio();
+        }
+
+        // Switch between Editorial Grid & Archive Index List View
+        function setViewMode(mode) {
+            currentViewMode = mode;
+            const gridEl = document.getElementById('portfolio-grid-view');
+            const indexEl = document.getElementById('portfolio-index-view');
+            const btnGrid = document.getElementById('btn-view-grid');
+            const btnIndex = document.getElementById('btn-view-index');
+
+            if (mode === 'grid') {
+                gridEl.classList.remove('hidden');
+                indexEl.classList.add('hidden');
+                btnGrid.classList.add('text-gallery-ink', 'dark:text-gallery-darkInk', 'font-medium');
+                btnGrid.classList.remove('text-gallery-muted', 'dark:text-gallery-darkMuted');
+                btnIndex.classList.add('text-gallery-muted', 'dark:text-gallery-darkMuted');
+                btnIndex.classList.remove('text-gallery-ink', 'dark:text-gallery-darkInk', 'font-medium');
+                hideHoverPreview();
+            } else {
+                gridEl.classList.add('hidden');
+                indexEl.classList.remove('hidden');
+                btnIndex.classList.add('text-gallery-ink', 'dark:text-gallery-darkInk', 'font-medium');
+                btnIndex.classList.remove('text-gallery-muted', 'dark:text-gallery-darkMuted');
+                btnGrid.classList.add('text-gallery-muted', 'dark:text-gallery-darkMuted');
+                btnGrid.classList.remove('text-gallery-ink', 'dark:text-gallery-darkInk', 'font-medium');
+            }
+        }
+
+        // Floating Image Preview on Index Table Hover
+        const previewContainer = document.getElementById('hover-preview-container');
+        const previewImg = document.getElementById('hover-preview-img');
+        const previewCode = document.getElementById('hover-preview-code');
+        const previewSpec = document.getElementById('hover-preview-spec');
+
+        function showHoverPreview(index) {
+            const proj = projectsData[index];
+            if (!proj) return;
+            previewImg.src = proj.image;
+            previewCode.textContent = `${proj.id} / ${proj.category.toUpperCase()}`;
+            previewSpec.textContent = proj.scale || proj.area || '';
+            previewContainer.classList.remove('opacity-0', 'scale-95');
+            previewContainer.classList.add('opacity-100', 'scale-100');
+        }
+
+        function hideHoverPreview() {
+            previewContainer.classList.add('opacity-0', 'scale-95');
+            previewContainer.classList.remove('opacity-100', 'scale-100');
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            if (currentViewMode === 'index') {
+                const x = Math.min(e.clientX + 28, window.innerWidth - 340);
+                const y = Math.min(e.clientY - 80, window.innerHeight - 260);
+                previewContainer.style.left = `${Math.max(16, x)}px`;
+                previewContainer.style.top = `${Math.max(16, y)}px`;
+            }
+        });
+
+        // Lightbox Modal Functions
+        function openProjectModal(index) {
+            currentModalIndex = index;
+            const proj = projectsData[index];
+            if (!proj) return;
+            const scaleVal = proj.scale || proj.area || '—';
+
+            document.getElementById('modal-index').textContent = proj.id;
+            document.getElementById('modal-category').textContent = proj.category;
+            document.getElementById('modal-cat-edit').textContent = proj.category;
+            document.getElementById('modal-year-area').textContent = `${proj.year} — ${scaleVal}`;
+            document.getElementById('modal-area-edit').textContent = scaleVal;
+            document.getElementById('modal-location').textContent = proj.location || 'Indonesia';
+            document.getElementById('modal-title').textContent = proj.title;
+            document.getElementById('modal-desc').textContent = proj.description;
+            document.getElementById('modal-lighting').textContent = proj.lighting || 'Architecture & Spatial Design';
+            document.getElementById('modal-materials').textContent = proj.materials || 'Curated Architectural Materials';
+            document.getElementById('modal-img').src = proj.image;
+
+            const mailtoLink = document.getElementById('modal-inquiry-mailto');
+            if (mailtoLink) {
+                mailtoLink.href = `mailto:contact@satyowidiasa.com?subject=${encodeURIComponent('Inquiry Proyek Serupa: ' + proj.title + ' — DDD Space')}`;
+            }
+
+            document.getElementById('project-modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-            document.body.style.overflow = 'auto';
+        function closeProjectModal() {
+            document.getElementById('project-modal').classList.add('hidden');
+            document.body.style.overflow = '';
         }
 
-        renderProjects();
+        function navigateModal(direction) {
+            currentModalIndex = (currentModalIndex + direction + projectsData.length) % projectsData.length;
+            openProjectModal(currentModalIndex);
+        }
+
+        function handleHeroClick() {
+            if (replaceModeActive) {
+                triggerUploadForSlot('featured');
+            } else {
+                openProjectModal(0);
+            }
+        }
+
+        function handleProjectCardClick(index) {
+            if (replaceModeActive) {
+                triggerUploadForSlot(index);
+            } else {
+                openProjectModal(index);
+            }
+        }
+
+        // Toggle Quick Inline Edit Mode
+        function toggleReplaceMode() {
+            replaceModeActive = !replaceModeActive;
+            const btn = document.getElementById('btn-replace-mode');
+            const heroBadge = document.getElementById('hero-replace-badge');
+            const banner = document.getElementById('edit-mode-banner');
+
+            const heroEditableIds = [
+                'hero-jargon-badge', 'hero-main-headline', 'hero-sub-meta',
+                'hero-caption-code', 'hero-caption-title', 'hero-caption-category', 'hero-caption-scale'
+            ];
+
+            if (replaceModeActive) {
+                document.body.classList.add('edit-mode-active');
+                heroBadge.classList.remove('hidden');
+                banner.classList.remove('hidden');
+                heroEditableIds.forEach(id => document.getElementById(id).setAttribute('contenteditable', 'true'));
+                btn.textContent = '✓ Selesai Edit Cepat';
+                btn.classList.add('bg-amber-600', 'text-white');
+            } else {
+                document.body.classList.remove('edit-mode-active');
+                heroBadge.classList.add('hidden');
+                banner.classList.add('hidden');
+                heroEditableIds.forEach(id => document.getElementById(id).setAttribute('contenteditable', 'false'));
+                btn.textContent = 'Edit Cepat di Layar';
+                btn.classList.remove('bg-amber-600', 'text-white');
+            }
+            renderPortfolio();
+        }
+
+        // Client-side Image Compressor so uploaded 4K renders stay crisp & fast in HTML
+        function compressImageFile(file, maxWidth, quality, callback) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > maxWidth) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+                    callback(compressedDataUrl);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function triggerUploadForSlot(slot) {
+            targetReplaceSlot = slot;
+            document.getElementById('render-file-input').click();
+        }
+
+        function replaceCurrentModalImage() {
+            triggerUploadForSlot(currentModalIndex);
+        }
+
+        function handleFileSelected(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const cleanFileName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+            compressImageFile(file, 1600, 0.84, function(dataUrl) {
+                if (targetReplaceSlot === 'featured') {
+                    document.getElementById('hero-render-img').src = dataUrl;
+                    document.getElementById('hero-caption-title').textContent = cleanFileName;
+                    saveHeroField('image', dataUrl);
+                    saveHeroField('title', cleanFileName);
+                } else if (typeof targetReplaceSlot === 'number') {
+                    projectsData[targetReplaceSlot].image = dataUrl;
+                    projectsData[targetReplaceSlot].title = cleanFileName;
+                    saveProjectsToStorage();
+                    renderPortfolio();
+                    if (!document.getElementById('project-modal').classList.contains('hidden')) {
+                        document.getElementById('modal-img').src = dataUrl;
+                        document.getElementById('modal-title').textContent = cleanFileName;
+                    }
+                }
+            });
+            event.target.value = '';
+        }
+
+        // ==========================================================================
+        // STUDIO MANAGER LOGIC (ADD, EDIT, REORDER, DELETE, & ONE-CLICK HTML EXPORT)
+        // ==========================================================================
+        function openStudioManager(initialTab = 'add') {
+            document.getElementById('studio-manager-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            populateHeroManagerForm();
+            renderManagerProjectList();
+            switchManagerTab(initialTab);
+        }
+
+        function closeStudioManager() {
+            document.getElementById('studio-manager-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function switchManagerTab(tabName) {
+            const tabs = ['add', 'list', 'hero', 'publish'];
+            tabs.forEach(t => {
+                const contentEl = document.getElementById(`manager-tab-${t}`);
+                const btnEl = document.getElementById(`tab-btn-${t}`);
+                if (t === tabName) {
+                    contentEl.classList.remove('hidden');
+                    btnEl.classList.add('bg-[#FAF9F6]', 'dark:bg-[#161614]', 'border-t', 'border-x', 'border-stone-300', 'dark:border-stone-700', 'font-medium');
+                } else {
+                    contentEl.classList.add('hidden');
+                    btnEl.classList.remove('bg-[#FAF9F6]', 'dark:bg-[#161614]', 'border-t', 'border-x', 'border-stone-300', 'dark:border-stone-700', 'font-medium');
+                }
+            });
+            if (tabName === 'list') renderManagerProjectList();
+        }
+
+        function handleFormImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            compressImageFile(file, 1600, 0.84, function(dataUrl) {
+                document.getElementById('form-proj-image').value = dataUrl;
+                document.getElementById('form-img-preview').src = dataUrl;
+                document.getElementById('form-img-preview-wrap').classList.remove('hidden');
+                const titleInput = document.getElementById('form-proj-title');
+                if (!titleInput.value.trim()) {
+                    titleInput.value = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+                }
+            });
+        }
+
+        function resetProjectForm() {
+            document.getElementById('form-edit-index').value = '-1';
+            document.getElementById('form-mode-title').textContent = 'Formulir Tambah Proyek Baru';
+            document.getElementById('form-proj-title').value = '';
+            document.getElementById('form-proj-category').value = 'Residential';
+            document.getElementById('form-proj-scale').value = '';
+            document.getElementById('form-proj-year').value = '2026';
+            document.getElementById('form-proj-location').value = '';
+            document.getElementById('form-proj-size').value = 'large';
+            document.getElementById('form-proj-scope').value = '';
+            document.getElementById('form-proj-materials').value = '';
+            document.getElementById('form-proj-image').value = '';
+            document.getElementById('form-proj-desc').value = '';
+            document.getElementById('form-img-preview-wrap').classList.add('hidden');
+            document.getElementById('form-save-feedback').classList.add('hidden');
+        }
+
+        function saveProjectFromForm() {
+            const editIdx = parseInt(document.getElementById('form-edit-index').value, 10);
+            const title = document.getElementById('form-proj-title').value.trim() || 'Untitled Architectural Work';
+            const category = document.getElementById('form-proj-category').value;
+            const scale = document.getElementById('form-proj-scale').value.trim() || '180 m²';
+            const year = document.getElementById('form-proj-year').value.trim() || '2026';
+            const location = document.getElementById('form-proj-location').value.trim() || 'Indonesia';
+            const layoutSize = document.getElementById('form-proj-size').value || 'large';
+            const lighting = document.getElementById('form-proj-scope').value.trim() || 'Architecture, Exterior & Interior';
+            const materials = document.getElementById('form-proj-materials').value.trim() || 'Natural Timber, Concrete, Daylight';
+            const image = document.getElementById('form-proj-image').value.trim() || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85';
+            const description = document.getElementById('form-proj-desc').value.trim() || 'Eksplorasi keselarasan ruang, proporsi massa bangunan, dan kejujuran material.';
+
+            const projectObj = {
+                id: '01',
+                title,
+                category,
+                scale,
+                year,
+                location,
+                layoutSize,
+                lighting,
+                materials,
+                image,
+                description
+            };
+
+            if (editIdx >= 0 && editIdx < projectsData.length) {
+                projectsData[editIdx] = projectObj;
+            } else {
+                // Add new project at the top of the portfolio
+                projectsData.unshift(projectObj);
+            }
+
+            renumberProjectIds();
+            saveProjectsToStorage();
+            renderPortfolio();
+            renderManagerProjectList();
+
+            const feedback = document.getElementById('form-save-feedback');
+            feedback.classList.remove('hidden');
+            setTimeout(() => {
+                resetProjectForm();
+                switchManagerTab('list');
+            }, 900);
+        }
+
+        function renderManagerProjectList() {
+            const listEl = document.getElementById('manager-project-list');
+            if (!listEl) return;
+
+            listEl.innerHTML = projectsData.map((p, idx) => `
+                <div class="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="flex items-center gap-3.5">
+                        <img src="${p.image}" alt="${p.title}" class="w-16 h-12 object-cover bg-stone-200 dark:bg-stone-800 shrink-0">
+                        <div>
+                            <div class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted">
+                                #${p.id} · ${p.category} · ${p.scale || p.area || ''} · ${p.year}
+                            </div>
+                            <h5 class="font-serif text-lg font-normal">${p.title}</h5>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider shrink-0">
+                        <button onclick="moveProject(${idx}, -1)" title="Geser Naik" class="px-2.5 py-1 border border-stone-300 dark:border-stone-700 hover:bg-stone-200 dark:hover:bg-stone-800">↑</button>
+                        <button onclick="moveProject(${idx}, 1)" title="Geser Turun" class="px-2.5 py-1 border border-stone-300 dark:border-stone-700 hover:bg-stone-200 dark:hover:bg-stone-800">↓</button>
+                        <button onclick="loadProjectIntoForm(${idx})" class="px-3 py-1 bg-stone-900 text-white dark:bg-stone-200 dark:text-stone-900">Edit</button>
+                        <button onclick="deleteProject(${idx})" class="px-2.5 py-1 border border-red-400 text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30">Hapus</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadProjectIntoForm(idx) {
+            const p = projectsData[idx];
+            if (!p) return;
+            document.getElementById('form-edit-index').value = String(idx);
+            document.getElementById('form-mode-title').textContent = `Edit Proyek #${p.id} — ${p.title}`;
+            document.getElementById('form-proj-title').value = p.title || '';
+            document.getElementById('form-proj-category').value = p.category || 'Residential';
+            document.getElementById('form-proj-scale').value = p.scale || p.area || '';
+            document.getElementById('form-proj-year').value = p.year || '2026';
+            document.getElementById('form-proj-location').value = p.location || '';
+            document.getElementById('form-proj-size').value = p.layoutSize || 'large';
+            document.getElementById('form-proj-scope').value = p.lighting || '';
+            document.getElementById('form-proj-materials').value = p.materials || '';
+            document.getElementById('form-proj-image').value = p.image || '';
+            document.getElementById('form-proj-desc').value = p.description || '';
+            document.getElementById('form-img-preview').src = p.image || '';
+            document.getElementById('form-img-preview-wrap').classList.remove('hidden');
+            switchManagerTab('add');
+        }
+
+        function moveProject(idx, dir) {
+            const target = idx + dir;
+            if (target < 0 || target >= projectsData.length) return;
+            const temp = projectsData[idx];
+            projectsData[idx] = projectsData[target];
+            projectsData[target] = temp;
+            renumberProjectIds();
+            saveProjectsToStorage();
+            renderPortfolio();
+            renderManagerProjectList();
+        }
+
+        function deleteProject(idx) {
+            if (projectsData.length <= 1) return;
+            projectsData.splice(idx, 1);
+            renumberProjectIds();
+            saveProjectsToStorage();
+            renderPortfolio();
+            renderManagerProjectList();
+        }
+
+        function populateHeroManagerForm() {
+            document.getElementById('hero-form-jargon').value = heroData.jargon || '';
+            document.getElementById('hero-form-headline').value = heroData.headline || '';
+            document.getElementById('hero-form-title').value = heroData.title || '';
+            document.getElementById('hero-form-scale').value = heroData.scale || '';
+            document.getElementById('hero-form-image').value = heroData.image || '';
+        }
+
+        function handleHeroFormUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            compressImageFile(file, 1800, 0.85, function(dataUrl) {
+                document.getElementById('hero-form-image').value = dataUrl;
+            });
+        }
+
+        function saveHeroFromManager() {
+            heroData.jargon = document.getElementById('hero-form-jargon').value.trim();
+            heroData.headline = document.getElementById('hero-form-headline').value.trim();
+            heroData.title = document.getElementById('hero-form-title').value.trim();
+            heroData.scale = document.getElementById('hero-form-scale').value.trim();
+            heroData.image = document.getElementById('hero-form-image').value.trim();
+            try {
+                localStorage.setItem(STORAGE_KEY_HERO, JSON.stringify(heroData));
+            } catch (e) {}
+            applyHeroToDOM();
+            switchManagerTab('publish');
+        }
+
+        // ==========================================================================
+        // ONE-CLICK GENERATOR: DOWNLOAD CLEAN PRODUCTION index.html FOR CLOUDFLARE
+        // ==========================================================================
+        function generateUpdatedHtmlSource(hideFloatingAdminBar = true) {
+            // Ensure we exit inline edit mode before serializing
+            if (replaceModeActive) toggleReplaceMode();
+            closeStudioManager();
+
+            let rawHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+            // 1. Bake updated heroData permanently into defaultHeroData
+            const heroCodeBlock = `/*__START_HERO_DATA__*/\n        const defaultHeroData = ${JSON.stringify(heroData, null, 12)};\n        /*__END_HERO_DATA__*/`;
+            rawHtml = rawHtml.replace(/\/\*__START_HERO_DATA__\*\/[\s\S]*?\/\*__END_HERO_DATA__\*\//, heroCodeBlock);
+
+            // 2. Bake updated projectsData permanently into defaultProjectsData
+            const projectsCodeBlock = `/*__START_PROJECTS_DATA__*/\n        const defaultProjectsData = ${JSON.stringify(projectsData, null, 12)};\n        /*__END_PROJECTS_DATA__*/`;
+            rawHtml = rawHtml.replace(/\/\*__START_PROJECTS_DATA__\*\/[\s\S]*?\/\*__END_PROJECTS_DATA__\*\//, projectsCodeBlock);
+
+            // 3. Hide floating admin toolbar for public visitors (Owner can still click [ ⚙ Studio Manager ] in footer)
+            if (hideFloatingAdminBar) {
+                rawHtml = rawHtml.replace('id="floating-admin-toolbar" class="admin-only-ui', 'id="floating-admin-toolbar" class="hidden admin-only-ui');
+            }
+
+            return rawHtml;
+        }
+
+        function downloadProductionHtml() {
+            const finalHtml = generateUpdatedHtmlSource(true);
+            const blob = new Blob([finalHtml], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function copyProjectsArrayCode() {
+            const codeString = `const defaultProjectsData = ${JSON.stringify(projectsData, null, 4)};`;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = codeString;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const btn = document.getElementById('btn-copy-array');
+            const orig = btn.textContent;
+            btn.textContent = '✓ Kode Daftar Proyek Tersalin!';
+            setTimeout(() => { btn.textContent = orig; }, 2500);
+        }
+
+        // Copy Contact Email Helper
+        function copyContactEmail(emailAddress = 'contact@satyowidiasa.com', btnId = 'btn-copy-email') {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = emailAddress;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const btn = document.getElementById(btnId);
+            if (btn) {
+                const original = btn.textContent;
+                btn.textContent = 'Copied ✓';
+                setTimeout(() => { btn.textContent = original; }, 2000);
+            }
+        }
+
+        // Light / Dark Studio Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const label = document.getElementById('theme-label');
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                label.textContent = 'Dark Studio';
+            } else {
+                label.textContent = 'Daylight';
+            }
+        }
+
+        // Keyboard Accessibility
+        window.addEventListener('keydown', (e) => {
+            const modalOpen = !document.getElementById('project-modal').classList.contains('hidden');
+            if (e.key === 'Escape') {
+                closeProjectModal();
+                closeStudioManager();
+            } else if (modalOpen && e.key === 'ArrowRight' && document.activeElement.getAttribute('contenteditable') !== 'true') {
+                navigateModal(1);
+            } else if (modalOpen && e.key === 'ArrowLeft' && document.activeElement.getAttribute('contenteditable') !== 'true') {
+                navigateModal(-1);
+            }
+        });
+
+        // Initialize Gallery on Load
+        window.onload = function() {
+            applyHeroToDOM();
+            renderPortfolio();
+        };
     </script>
 </body>
 </html>
