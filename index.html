@@ -611,6 +611,427 @@
         </div>
     </div>
 
+    <!-- ================= FLOATING STUDIO TOOLKIT BAR (HIDDEN AUTOMATICALLY ON EXPORTED LIVE FILE) ================= -->
+    <div id="floating-admin-toolbar" class="admin-only-ui fixed bottom-4 inset-x-4 sm:inset-x-auto sm:right-6 sm:bottom-6 z-40 flex flex-wrap items-center justify-between sm:justify-end gap-2 bg-stone-900/95 dark:bg-stone-100/95 text-stone-100 dark:text-stone-900 px-4 py-2.5 shadow-xl backdrop-blur-md border border-stone-700 dark:border-stone-300">
+        <span class="font-mono text-[10px] tracking-[0.12em] uppercase mr-1 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Panel Arsitek:
+        </span>
+        
+        <button onclick="openStudioManager('add')" class="font-mono text-[10px] tracking-[0.12em] uppercase px-3 py-1.5 bg-emerald-700 text-white hover:bg-emerald-600 transition-colors font-medium">
+            + Tambah Proyek Baru
+        </button>
+
+        <button onclick="openStudioManager('list')" class="font-mono text-[10px] tracking-[0.12em] uppercase px-2.5 py-1.5 bg-stone-800 dark:bg-stone-200 hover:bg-stone-700 dark:hover:bg-stone-300 transition-colors">
+            ⚙ Studio Manager &amp; Download Web
+        </button>
+
+        <button onclick="toggleReplaceMode()" id="btn-replace-mode" class="font-mono text-[10px] tracking-[0.12em] uppercase px-2.5 py-1.5 border border-stone-600 dark:border-stone-400 hover:opacity-80 transition-opacity">
+            Edit Cepat di Layar
+        </button>
+    </div>
+
+    <!-- Hidden File Input for testing local renders in the layout -->
+    <input type="file" id="render-file-input" accept="image/*" class="hidden" onchange="handleFileSelected(event)">
+
+    <!-- ================= STUDIO MANAGER MODAL (ZERO-CODE PROJECT MANAGER & EXPORTER) ================= -->
+    <div id="studio-manager-modal" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-[#FAF9F6] dark:bg-[#161614] text-gallery-ink dark:text-gallery-darkInk max-w-4xl w-full border border-stone-300 dark:border-stone-700 shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-900 flex items-center justify-between">
+                <div>
+                    <span class="font-mono text-[10px] tracking-[0.2em] uppercase opacity-75 block">
+                        DDD SPACE — Zero-Code Portfolio CMS
+                    </span>
+                    <h3 class="font-serif text-xl sm:text-2xl font-normal">
+                        Studio Manager — Kelola &amp; Tambah Proyek Tanpa Koding
+                    </h3>
+                </div>
+                <button onclick="closeStudioManager()" class="font-mono text-xs uppercase tracking-widest px-3 py-1 border border-stone-600 dark:border-stone-400 hover:opacity-75">
+                    ✕ Tutup
+                </button>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <div class="px-6 pt-3 bg-stone-200/70 dark:bg-stone-900 hairline-b flex flex-wrap gap-2 font-mono text-[11px] uppercase tracking-wider">
+                <button onclick="switchManagerTab('add')" id="tab-btn-add" class="px-4 py-2.5 bg-[#FAF9F6] dark:bg-[#161614] text-gallery-ink dark:text-gallery-darkInk font-medium border-t border-x border-stone-300 dark:border-stone-700">
+                    1. + Tambah / Edit Proyek
+                </button>
+                <button onclick="switchManagerTab('list')" id="tab-btn-list" class="px-4 py-2.5 text-gallery-muted dark:text-gallery-darkMuted hover:text-gallery-ink dark:hover:text-gallery-darkInk">
+                    2. Daftar Proyek (<span id="manager-count-badge">6</span>)
+                </button>
+                <button onclick="switchManagerTab('hero')" id="tab-btn-hero" class="px-4 py-2.5 text-gallery-muted dark:text-gallery-darkMuted hover:text-gallery-ink dark:hover:text-gallery-darkInk">
+                    3. Edit Hero &amp; Jargon Utama
+                </button>
+                <button onclick="switchManagerTab('publish')" id="tab-btn-publish" class="px-4 py-2.5 text-emerald-700 dark:text-emerald-400 font-medium">
+                    4. ⬇ Download File Siap Upload
+                </button>
+            </div>
+
+            <!-- Modal Scrollable Body -->
+            <div class="p-6 overflow-y-auto space-y-6 flex-1">
+
+                <!-- TAB 1: ADD / EDIT PROJECT FORM -->
+                <div id="manager-tab-add" class="space-y-5">
+                    <div class="flex items-center justify-between pb-3 hairline-b">
+                        <div>
+                            <h4 id="form-mode-title" class="font-serif text-xl font-normal">Formulir Tambah Proyek Baru</h4>
+                            <p class="text-xs text-gallery-muted dark:text-gallery-darkMuted">
+                                Isi data proyek Anda di bawah ini. Setelah klik <strong>Simpan ke Portofolio</strong>, proyek langsung tampil di Grid View dan Index View.
+                            </p>
+                        </div>
+                        <button onclick="resetProjectForm()" class="font-mono text-[10px] uppercase tracking-wider underline text-gallery-muted">
+                            Bersihkan Form
+                        </button>
+                    </div>
+
+                    <input type="hidden" id="form-edit-index" value="-1">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 font-sans text-xs sm:text-sm">
+                        <div class="sm:col-span-6">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted dark:text-gallery-darkMuted block mb-1">
+                                Judul Proyek *
+                            </label>
+                            <input type="text" id="form-proj-title" placeholder="Contoh: Uluwatu Cliff Villa / S-House Sidoarjo" class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 focus:outline-none focus:border-stone-900 dark:focus:border-stone-300">
+                        </div>
+
+                        <div class="sm:col-span-6">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted dark:text-gallery-darkMuted block mb-1">
+                                Kategori Utama (Untuk Filter Menu) *
+                            </label>
+                            <select id="form-proj-category" class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 focus:outline-none">
+                                <option value="Residential">Residential (Hunian / Villa)</option>
+                                <option value="Commercial">Commercial (Kantor / Kafe / Retail / Hospitality)</option>
+                                <option value="Exterior — Interior">Exterior — Interior (Kesatuan Fasad &amp; Ruang Dalam)</option>
+                                <option value="Supporting & Visual">Supporting &amp; Visual (Perencanaan / Detail / 3D)</option>
+                            </select>
+                        </div>
+
+                        <div class="sm:col-span-4">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted dark:text-gallery-darkMuted block mb-1">
+                                Luas / Skala (Scale)
+                            </label>
+                            <input type="text" id="form-proj-scale" placeholder="Contoh: 240 m²" class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 focus:outline-none">
+                        </div>
+
+                        <div class="sm:col-span-4">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted dark:text-gallery-darkMuted block mb-1">
+                                Tahun Proyek
+                            </label>
+                            <input type="text" id="form-proj-year" value="2026" placeholder="2026" class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 focus:outline-none">
+                        </div>
+
+                        <div class="sm:col-span-4">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted dark:text-gallery-darkMuted block mb-1">
+                                Lokasi / Konteks
+                            </label>
+                            <input type="text" id="form-proj-location" placeholder="Contoh: Surabaya / Bali / Private" class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 focus:outline-none">
+                        </div>
+
+                        <div class="sm:col-span-4">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted dark:text-gallery-darkMuted block mb-1">
+                                Ukuran &amp; Proporsi di Grid Andra Matin
+                            </label>
+                            <select id="form-proj-size" class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 focus:outline-none">
+                                <option value="large">Large Landscape (Lebar 7 Kolom — Menonjol)</option>
+                                <option value="medium">Medium Portrait (Vertikal 5 Kolom — Artistik)</option>
+                                <option value="wide">Balanced Half (Seimbang 6 Kolom — Rapi)</option>
+                            </select>
+                        </div>
+
+                        <div class="sm:col-span-4">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted dark:text-gallery-darkMuted block mb-1">
+                                Cakupan Pekerjaan (Scope)
+                            </label>
+                            <input type="text" id="form-proj-scope" placeholder="Contoh: Architecture, Exterior & Interior" class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 focus:outline-none">
+                        </div>
+
+                        <div class="sm:col-span-4">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted dark:text-gallery-darkMuted block mb-1">
+                                Karakter Material / Pencahayaan
+                            </label>
+                            <input type="text" id="form-proj-materials" placeholder="Contoh: Kayu Jati, Beton Ekspos, 4000K" class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 focus:outline-none">
+                        </div>
+
+                        <!-- Image Source Option: Either File Upload (Auto-compressed) OR Folder Path -->
+                        <div class="sm:col-span-12 p-4 bg-stone-200/60 dark:bg-stone-900/90 border border-stone-300 dark:border-stone-700 space-y-3">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-ink dark:text-gallery-darkInk font-medium block">
+                                Foto Render Proyek (Pilih Cara Paling Mudah untuk Anda):
+                            </label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                <div>
+                                    <span class="text-xs block mb-1.5 text-gallery-muted dark:text-gallery-darkMuted">
+                                        <strong>Cara A (Langsung Pilih File Foto):</strong> Foto otomatis dioptimalkan dan menempel langsung di dalam file <code>index.html</code>.
+                                    </span>
+                                    <input type="file" id="form-proj-file" accept="image/*" onchange="handleFormImageUpload(event)" class="block w-full text-xs file:mr-3 file:py-1.5 file:px-3 file:border-0 file:font-mono file:text-[10px] file:uppercase file:bg-stone-900 file:text-white dark:file:bg-stone-200 dark:file:text-stone-900 cursor-pointer">
+                                </div>
+                                <div>
+                                    <span class="text-xs block mb-1.5 text-gallery-muted dark:text-gallery-darkMuted">
+                                        <strong>Cara B (Ketik Nama File di Folder):</strong> Jika Anda menaruh foto di folder <code>images/</code> (misal: <code>images/proyek-07.jpg</code>).
+                                    </span>
+                                    <input type="text" id="form-proj-image" placeholder="images/nama-foto.jpg atau URL gambar" class="w-full px-3 py-1.5 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-xs font-mono focus:outline-none">
+                                </div>
+                            </div>
+                            <div id="form-img-preview-wrap" class="hidden pt-2 flex items-center gap-3">
+                                <img id="form-img-preview" src="" alt="Preview" class="w-20 h-14 object-cover border border-stone-400">
+                                <span id="form-img-status" class="font-mono text-[10px] text-emerald-700 dark:text-emerald-400">✓ Foto siap digunakan</span>
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-12">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted dark:text-gallery-darkMuted block mb-1">
+                                Deskripsi Singkat Proyek (Lugas &amp; Berkarakter)
+                            </label>
+                            <textarea id="form-proj-desc" rows="3" placeholder="Jelaskan konsep ruang, respons terhadap tapak/klien, atau keselarasan eksterior-interior pada proyek ini..." class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 focus:outline-none"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="pt-3 flex flex-wrap items-center justify-between gap-3">
+                        <span id="form-save-feedback" class="font-mono text-xs text-emerald-700 dark:text-emerald-400 hidden">
+                            ✓ Proyek berhasil disimpan ke daftar portofolio!
+                        </span>
+                        <div class="flex items-center gap-3 ml-auto">
+                            <button onclick="saveProjectFromForm()" class="font-mono text-xs uppercase tracking-widest px-6 py-3 bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 hover:opacity-90 transition-opacity font-medium">
+                                ✓ Simpan Proyek ke Portofolio
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: MANAGE / REORDER / DELETE EXISTING PROJECTS -->
+                <div id="manager-tab-list" class="hidden space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 hairline-b">
+                        <div>
+                            <h4 class="font-serif text-xl font-normal">Daftar Proyek Saat Ini</h4>
+                            <p class="text-xs text-gallery-muted dark:text-gallery-darkMuted">
+                                Anda dapat mengubah urutan tampil (Naik/Turun), mengedit keterangan, atau menghapus proyek.
+                            </p>
+                        </div>
+                        <button onclick="switchManagerTab('add'); resetProjectForm();" class="font-mono text-[10px] uppercase tracking-wider px-3.5 py-2 bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900">
+                            + Tambah Proyek Baru
+                        </button>
+                    </div>
+
+                    <div id="manager-project-list" class="divide-y divide-stone-300 dark:divide-stone-800">
+                        <!-- Dynamically populated list of projects -->
+                    </div>
+                </div>
+
+                <!-- TAB 3: EDIT HERO & STUDIO HEADLINE -->
+                <div id="manager-tab-hero" class="hidden space-y-4">
+                    <div class="pb-3 hairline-b">
+                        <h4 class="font-serif text-xl font-normal">Pengaturan Tampilan Pembuka (Hero Section)</h4>
+                        <p class="text-xs text-gallery-muted dark:text-gallery-darkMuted">
+                            Sesuaikan jargon prestige, kalimat utama DDD Space, dan foto proyek pembuka di bagian paling atas halaman.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 text-xs sm:text-sm">
+                        <div class="sm:col-span-12">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted block mb-1">Jargon Prestige Atas</label>
+                            <input type="text" id="hero-form-jargon" class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 font-mono text-xs">
+                        </div>
+                        <div class="sm:col-span-12">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted block mb-1">Headline Utama (Kalimat Lugas DDD Space)</label>
+                            <input type="text" id="hero-form-headline" class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 font-serif text-lg">
+                        </div>
+                        <div class="sm:col-span-6">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted block mb-1">Judul Proyek Hero (Caption Bawah Foto)</label>
+                            <input type="text" id="hero-form-title" class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700">
+                        </div>
+                        <div class="sm:col-span-6">
+                            <label class="font-mono text-[10px] uppercase tracking-wider text-gallery-muted block mb-1">Keterangan Kategori &amp; Tahun Hero</label>
+                            <input type="text" id="hero-form-scale" class="w-full px-3 py-2 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700">
+                        </div>
+                        <div class="sm:col-span-12 p-4 bg-stone-200/60 dark:bg-stone-900 border border-stone-300 dark:border-stone-700 space-y-2">
+                            <label class="font-mono text-[10px] uppercase tracking-wider block">Ganti Foto Utama (Hero Image)</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+                                <input type="file" accept="image/*" onchange="handleHeroFormUpload(event)" class="text-xs file:mr-3 file:py-1.5 file:px-3 file:border-0 file:font-mono file:text-[10px] file:uppercase file:bg-stone-900 file:text-white">
+                                <input type="text" id="hero-form-image" placeholder="Atau ketik path: images/hero-utama.jpg" class="w-full px-3 py-1.5 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 font-mono text-xs">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-3 flex justify-end">
+                        <button onclick="saveHeroFromManager()" class="font-mono text-xs uppercase tracking-widest px-6 py-2.5 bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900">
+                            ✓ Simpan Perubahan Hero
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TAB 4: ONE-CLICK EXPORT / PUBLISH TO CLOUDFLARE -->
+                <div id="manager-tab-publish" class="hidden space-y-6">
+                    <div class="p-5 bg-emerald-950/10 dark:bg-emerald-950/30 border border-emerald-800/30 dark:border-emerald-500/30 space-y-3">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-800 dark:text-emerald-400 font-semibold block">
+                            Solusi Paling Mudah — Tanpa Perlu Edit Kode Manual
+                        </span>
+                        <h4 class="font-serif text-2xl font-normal">
+                            Unduh File <code>index.html</code> Siap Upload ke Cloudflare Pages
+                        </h4>
+                        <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+                            Setelah Anda selesai menambahkan atau mengedit proyek di Studio Manager ini, cukup klik tombol hijau di bawah. Sistem akan otomatis membungkus seluruh proyek terbaru Anda ke dalam satu file <strong><code>index.html</code></strong> yang bersih (tombol bantu edit otomatis disembunyikan untuk pengunjung umum).
+                        </p>
+                        <div class="pt-2 flex flex-wrap gap-3">
+                            <button onclick="downloadProductionHtml()" class="font-mono text-xs uppercase tracking-widest px-6 py-3.5 bg-emerald-700 text-white hover:bg-emerald-600 transition-colors shadow-lg font-medium">
+                                ⬇ Download index.html Siap Upload (Cloudflare)
+                            </button>
+                            <button onclick="copyProjectsArrayCode()" id="btn-copy-array" class="font-mono text-[11px] uppercase tracking-wider px-4 py-3.5 border border-stone-400 dark:border-stone-600 hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors">
+                                📋 Copy Kode Daftar Proyek Saja
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-sans text-xs">
+                        <div class="p-4 bg-stone-200/50 dark:bg-stone-900 border border-stone-300 dark:border-stone-800">
+                            <strong class="font-mono text-[10px] uppercase tracking-wider block mb-1">1. Klik Download di Atas</strong>
+                            File <code>index.html</code> akan tersimpan ke komputer Anda dengan seluruh foto dan keterangan proyek terbaru.
+                        </div>
+                        <div class="p-4 bg-stone-200/50 dark:bg-stone-900 border border-stone-300 dark:border-stone-800">
+                            <strong class="font-mono text-[10px] uppercase tracking-wider block mb-1">2. Tarik ke Cloudflare Pages</strong>
+                            Buka <strong>Cloudflare Dashboard → Workers &amp; Pages → Create / Upload Assets</strong>, lalu masukkan file <code>index.html</code> tersebut.
+                        </div>
+                        <div class="p-4 bg-stone-200/50 dark:bg-stone-900 border border-stone-300 dark:border-stone-800">
+                            <strong class="font-mono text-[10px] uppercase tracking-wider block mb-1">3. Update Kapan Saja</strong>
+                            Saat ada proyek baru bulan depan, cukup buka web Anda, klik <code>[ ⚙ Studio Manager ]</code> di bagian paling bawah footer, tambah proyek, dan download ulang!
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-3.5 bg-stone-200/60 dark:bg-stone-900 hairline-t flex flex-wrap items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-wider text-gallery-muted">
+                <span>Perubahan tersimpan otomatis di browser Anda</span>
+                <div class="flex items-center gap-4">
+                    <button onclick="resetPortfolioData()" class="hover:text-red-600 transition-colors">Reset ke Contoh Awal</button>
+                    <button onclick="downloadProductionHtml()" class="text-emerald-700 dark:text-emerald-400 font-medium underline underline-offset-4">
+                        ⬇ Download index.html Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= APPLICATION LOGIC & EASY DATA AREA ================= -->
+    <script>
+        // ==========================================================================
+        // AREA EDIT DATA & TAMBAH PROYEK (CUKUP EDIT BAGIAN INI ATAU GUNAKAN STUDIO MANAGER)
+        // ==========================================================================
+        // PANDUAN MUDAH MENAMBAH PROYEK MANUAL:
+        // 1. Anda bisa menggunakan tombol "[ ⚙ Studio Manager ]" di pojok bawah website (Tanpa Koding), ATAU
+        // 2. Copy-paste salah satu blok { ... } di bawah ini untuk menambah proyek baru.
+        //
+        // Keterangan Kolom:
+        // - id          : Nomor urut tampil (misal: "01", "02", "07")
+        // - title       : Judul proyek arsitektur Anda
+        // - category    : Pilih salah satu: "Residential" | "Commercial" | "Exterior — Interior" | "Supporting & Visual"
+        // - scale       : Luas bangunan / skala (misal: "280 m²")
+        // - year        : Tahun proyek (misal: "2026")
+        // - location    : Kota atau konteks proyek (misal: "Surabaya" / "Bali" / "Private Commission")
+        // - layoutSize  : Ukuran di Grid Andra Matin: "large" (Lebar menonjol) | "medium" (Vertikal artistik) | "wide" (Seimbang)
+        // - lighting    : Cakupan pekerjaan / karakter pencahayaan (misal: "Architecture, Exterior & Spatial Plan")
+        // - materials   : Material utama (misal: "Exposed Concrete, Natural Timber, Clear Glass")
+        // - image       : Nama file foto di folder Anda (misal: "images/proyek-1.jpg") atau URL gambar
+        // - description : Penjelasan singkat yang lugas mengenai konsep proyek
+        // ==========================================================================
+
+        /*__START_HERO_DATA__*/
+        const defaultHeroData = {
+            jargon: "SELECTED ARCHITECTURAL WORKS — CURATED FOR DISTINCTION",
+            headline: "Menemukan kesesuaian dalam berarsitektur. Dirancang terukur, dibangun berkarakter.",
+            submeta: "DDD SPACE BY SATYOWIDIASA\nResidential · Commercial · Exterior — Interior · Supporting",
+            code: "00 / FEATURED COMMISSION",
+            title: "Modern Tropics & Spatial Harmony Residence",
+            category: "Architecture, Exterior & Interior",
+            scale: "Private Residence — 2026",
+            image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85"
+        };
+        /*__END_HERO_DATA__*/
+
+        /*__START_PROJECTS_DATA__*/
+        const defaultProjectsData = [
+            {
+                id: "01",
+                title: "Tropica Courtyard Residence",
+                category: "Residential",
+                scale: "280 m²",
+                year: "2026",
+                location: "Private Commission",
+                layoutSize: "large",
+                lighting: "Architecture, Exterior & Spatial Plan",
+                materials: "Exposed Concrete, Natural Timber, Clear Glass",
+                image: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1400&q=85",
+                description: "Perancangan hunian privat yang mengutamakan keselarasan antara massa bangunan eksterior, bukaan taman dalam (courtyard), dan kenyamanan sirkulasi ruang keluarga."
+            },
+            {
+                id: "02",
+                title: "Kala Commercial & Roastery Space",
+                category: "Commercial",
+                scale: "220 m²",
+                year: "2026",
+                location: "Urban Commercial",
+                layoutSize: "medium",
+                lighting: "Commercial Facade & Interior Flow",
+                materials: "Textured Plaster, Brushed Steel, Warm Oak",
+                image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85",
+                description: "Eksplorasi ruang komersial yang lugas dan berkarakter. Menyatukan fasad eksterior yang mengundang dengan alur tata ruang dalam yang fungsional bagi pengunjung."
+            },
+            {
+                id: "03",
+                title: "Monolith Facade & Exterior Study",
+                category: "Exterior — Interior",
+                scale: "340 m²",
+                year: "2026",
+                location: "Architectural Massing",
+                layoutSize: "medium",
+                lighting: "Building Envelope & Tropical Shading",
+                materials: "Architectural Concrete, Secondary Skin, Landscape",
+                image: "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1200&q=85",
+                description: "Pengolahan fasad dan gubahan massa eksterior yang merespons arah matahari tropis secara elegan, menciptakan garis bayangan tegas sekaligus menjaga keteduhan bangunan."
+            },
+            {
+                id: "04",
+                title: "Warm Timber & Brushed Steel Living",
+                category: "Exterior — Interior",
+                scale: "145 m²",
+                year: "2026",
+                location: "Interior & Custom Elements",
+                layoutSize: "large",
+                lighting: "Interior Architecture & 4000K Ambience",
+                materials: "Teak Wood Paneling, Stainless Steel, Muted Wall",
+                image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85",
+                description: "Keselarasan ruang dalam yang menggabungkan kehangatan panel kayu dengan presisi stainless steel dan pencahayaan netral yang tenang."
+            },
+            {
+                id: "05",
+                title: "Atelier & Creative Office HQ",
+                category: "Commercial",
+                scale: "310 m²",
+                year: "2025",
+                location: "Workspace Architecture",
+                layoutSize: "wide",
+                lighting: "Commercial Spatial Planning & Exterior",
+                materials: "Raw Concrete, Acoustic Timber, Diffused Daylight",
+                image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85",
+                description: "Perancangan studio dan kantor komersial dengan konsep ruang terbuka yang mendukung kolaborasi, dilengkapi pencahayaan alami merata dan akustik ruang yang terukur."
+            },
+            {
+                id: "06",
+                title: "Linear Pavilion & Spatial Study",
+                category: "Supporting & Visual",
+                scale: "190 m²",
+                year: "2025",
+                location: "Technical & 3D Visualization",
+                layoutSize: "wide",
+                lighting: "Full Architectural Design & 4K Visualization",
+                materials: "Vertical Timber Louvers, Microcement, Glass",
+                image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85",
+                description: "Kesinambungan antara perencanaan teknis tata ruang, kurasi material, dan visualisasi arsitektural presisi sebelum tahap pembangunan."
+            }
+        ];
+        /*__END_PROJECTS_DATA__*/
+
         // ==========================================================================
         // BATAS AREA DATA — KODE DI BAWAH INI MENGATUR TAMPILAN OTOMATIS
         // ==========================================================================
